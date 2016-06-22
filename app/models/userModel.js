@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import { Schema } from 'mongoose';
+const mongoose = require('mongoose');
 
 // Create a schema for users
 const userSchema = mongoose.Schema({
@@ -19,7 +18,7 @@ const userSchema = mongoose.Schema({
 });
 
 // Run on every save
-userSchema.pre('save', function(next) {
+userSchema.pre('save', (next) => {
   const currentDate = new Date(); // Create a new date obj
   // Set the lastUpdateDate field to currentDate
   this.lastUpdateDate = currentDate;
@@ -28,8 +27,9 @@ userSchema.pre('save', function(next) {
   if (!this.dateJoined) {
     this.dateJoined = currentDate;
   }
-
   next();
 });
 
-export const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
