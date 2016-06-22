@@ -1,0 +1,14 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "react"
+    ],
+    "env":  {
+      "browser": true,
+      "node": true,
+      "jquery": true
+    },
+    "rules": {
+      "space-before-function-paren": 0
+    }
+}
