@@ -1,5 +1,5 @@
 // Set the port to the Heroku ENV variable or 3000
-let port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Require Express
 const express = require('express');
@@ -13,8 +13,13 @@ const mongoose = require('mongoose');
 // Connect mongoose to database
 mongoose.connect('mongodb://localhost/brew-rank');
 
+// Not sure this part is needed
 // Alias the connection as db
-const db = mongoose.connection;
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', () => {
+//   console.log('connection is open');
+// });
 
 app.get('/', (request, response) => response.send('Hello World'));
 
