@@ -15,4 +15,16 @@ module.exports = function router(app) {
       res.json(beers);
     });
   });
+
+    // Get req to /restapi/users returns all users
+  app.get('/restapi/users', (req, res) => {
+  // Use the User model to find all users
+    User.find((err, users) => {
+      if (err) {
+        res.send(err);
+      }
+      // Send all users as JSON
+      res.json(users);
+    });
+  });
 };
