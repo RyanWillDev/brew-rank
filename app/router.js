@@ -4,6 +4,9 @@ const User = require('./models/userModel');
 
 // Pass Express as app into the router function
 module.exports = function router(app) {
+  // Handle home route
+  app.get('/', (request, response) => response.send('Hello World'));
+
   // Get req to /restapi/beers returns all beers
   app.get('/restapi/beers', (req, res) => {
     // Use the Beer model to find all beers

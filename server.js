@@ -21,10 +21,9 @@ mongoose.connect('mongodb://localhost/brew-rank');
 // const db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
 // Once the connection is open start router
-//db.once('open');
+// db.once('open');
 
+// Start router to handle requests
 router(app);
-
-app.get('/', (request, response) => response.send('Hello World'));
 
 app.listen(port, () => console.log('App is running'));
