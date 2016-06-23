@@ -10,16 +10,20 @@ const app = express();
 // Require Mongoose
 const mongoose = require('mongoose');
 
+// Require router
+const router = require('./app/router');
+
 // Connect mongoose to database
 mongoose.connect('mongodb://localhost/brew-rank');
 
-// Not sure this part is needed
+// !!!Still not sure if I need this!!!
 // Alias the connection as db
 // const db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', () => {
-//   console.log('connection is open');
-// });
+// Once the connection is open start router
+//db.once('open');
+
+router(app);
 
 app.get('/', (request, response) => response.send('Hello World'));
 
