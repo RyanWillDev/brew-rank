@@ -6,7 +6,10 @@ It has both a REST API and a GraphQL implementation.
 
 #### Dependencies 
 * Node
+* Nodemon - For development ease
+* Express
 * Mongo
 * Mongoose
-* Express
+* body-parser - To facilitate JSON Posts to the API
+
 
