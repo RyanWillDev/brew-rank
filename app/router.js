@@ -15,7 +15,7 @@ module.exports = function router(app) {
   app.get('/', (request, response) => response.send('Hello World'));
 
   // GET req to /restapi/beers returns all beers
-  app.get('/restapi/beers', (req, res) => {
+  app.get('/restapi/allbeers', (req, res) => {
     // Use the Beer model to find all beers
     Beer.find((err, beers) => {
       if (err) {
@@ -34,7 +34,7 @@ module.exports = function router(app) {
   });
 
     // GET req to /restapi/users returns all users
-  app.get('/restapi/users', (req, res) => {
+  app.get('/restapi/allusers', (req, res) => {
   // Use the User model to find all users
     User.find((err, users) => {
       if (err) {
@@ -50,6 +50,15 @@ module.exports = function router(app) {
     User.findById(req.params.id, (err, user) => {
       res.send(user);
     });
+  });
+
+  // GET req to return users by last name
+  app.get('/restapi/users', (req, res) => {
+    console.log(req.query);
+
+    // User.find(req.params.id, (err, user) => {
+    //   res.send(user);
+    // });
   });
 
   // POST req to add a beer
