@@ -53,4 +53,20 @@ module.exports = function router(app) {
       });
     });
   });
+
+  // POST req to add a user
+  app.post('/restapi/adduser', (req, res) => {
+    // Create a newBeer from the data sent in request
+    const newUser = new User(req.body);
+    // Save newUser to the DB
+    newUser.save((err) => {
+      if (err) {
+        res.send(err);
+      }
+      // Return all the  beers in the DB
+      User.find((err, users) => {
+        res.json(users);
+      });
+    });
+  });
 };
