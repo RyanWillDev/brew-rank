@@ -16,7 +16,7 @@ module.exports = function router(app) {
 
   // GET req to /restapi/beers returns all beers
   app.get('/restapi/beers', (req, res) => {
-  // Check for query params 
+  // Check for query params
     if (Object.keys(req.query).length === 0) {
       // If there aren't any get all users
       Beer.find((err, users) => {
@@ -39,6 +39,7 @@ module.exports = function router(app) {
     }
   });
 
+  // *** Commented out for historical puropses ***
   // // GET req to /restapi/beers returns all beers
   // app.get('/restapi/allbeers', (req, res) => {
   //   // Use the Beer model to find all beers
@@ -60,7 +61,7 @@ module.exports = function router(app) {
 
   // GET req to /restapi/users returns all users
   app.get('/restapi/users', (req, res) => {
-  // Check for query params 
+  // Check for query params
     if (Object.keys(req.query).length === 0) {
       // If there aren't any get all users
       User.find((err, users) => {
@@ -83,6 +84,7 @@ module.exports = function router(app) {
     }
   });
 
+  // *** Commented out for historical puropses ***
   // // GET req with id to return specific user
   // app.get('/restapi/users/:id', (req, res) => {
   //   User.findById(req.params.id, (err, user) => {
@@ -100,7 +102,7 @@ module.exports = function router(app) {
   // });
 
   // POST req to add a beer
-  app.post('/restapi/addbeer', (req, res) => {
+  app.post('/restapi/beers', (req, res) => {
     // Create a newBeer from the data sent in request
     const newBeer = new Beer(req.body);
     // Save newBeer to the DB
@@ -116,7 +118,7 @@ module.exports = function router(app) {
   });
 
   // POST req to add a user
-  app.post('/restapi/adduser', (req, res) => {
+  app.post('/restapi/users', (req, res) => {
     // Create a newBeer from the data sent in request
     const newUser = new User(req.body);
     // Save newUser to the DB
