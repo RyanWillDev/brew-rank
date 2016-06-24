@@ -26,6 +26,13 @@ module.exports = function router(app) {
     });
   });
 
+  // GET req with id to return specific beer
+  app.get('/restapi/beers/:id', (req, res) => {
+    Beer.findById(req.params.id, (err, beer) => {
+      res.send(beer);
+    });
+  });
+
     // GET req to /restapi/users returns all users
   app.get('/restapi/users', (req, res) => {
   // Use the User model to find all users
@@ -35,6 +42,13 @@ module.exports = function router(app) {
       }
       // Send all users as JSON
       res.json(users);
+    });
+  });
+
+  // GET req with id to return specific user
+  app.get('/restapi/users/:id', (req, res) => {
+    User.findById(req.params.id, (err, user) => {
+      res.send(user);
     });
   });
 
@@ -48,7 +62,7 @@ module.exports = function router(app) {
         res.send(err);
       }
       // Return all the  beers in the DB
-      Beer.find((err, beers) => {
+      Beer.find((err, beers) => { // App crashes without err here
         res.json(beers);
       });
     });
@@ -64,9 +78,20 @@ module.exports = function router(app) {
         res.send(err);
       }
       // Return all the  beers in the DB
-      User.find((err, users) => {
+      User.find((err, users) => { // App crashes without err here
         res.json(users);
       });
     });
   });
+
+  // POST req to add beer to users beer list
+    // If beer exists
+      // add the id to the and users rating to beer list
+    // Else
+      // create new beer and add rating and beer to users beer list
+    // update the beers total rating in the beers list
+
+  // DELETE request with id to delete user
+
+  // DELETE request with id to delete beer
 };
