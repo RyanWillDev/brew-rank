@@ -15,51 +15,89 @@ module.exports = function router(app) {
   app.get('/', (request, response) => response.send('Hello World'));
 
   // GET req to /restapi/beers returns all beers
-  app.get('/restapi/allbeers', (req, res) => {
-    // Use the Beer model to find all beers
-    Beer.find((err, beers) => {
-      if (err) {
-        res.send(err);
-      }
-      // Send all beers as JSON
-      res.json(beers);
-    });
+  app.get('/restapi/beers', (req, res) => {
+  // Check for query params 
+    if (Object.keys(req.query).length === 0) {
+      // If there aren't any get all users
+      Beer.find((err, users) => {
+        if (err) {
+          res.send(err);
+        }
+        // Send all users as JSON
+        res.json(users);
+      });
+    } else {
+      // If there are params use it as a search to
+      // find one user
+      Beer.find(req.query, (err, beer) => {
+        if (err) {
+          res.send(err);
+        }
+        // Send that user as JSON
+        res.json(beer);
+      });
+    }
   });
 
-  // GET req with id to return specific beer
-  app.get('/restapi/beers/:id', (req, res) => {
-    Beer.findById(req.params.id, (err, beer) => {
-      res.send(beer);
-    });
+  // // GET req to /restapi/beers returns all beers
+  // app.get('/restapi/allbeers', (req, res) => {
+  //   // Use the Beer model to find all beers
+  //   Beer.find((err, beers) => {
+  //     if (err) {
+  //       res.send(err);
+  //     }
+  //     // Send all beers as JSON
+  //     res.json(beers);
+  //   });
+  // });
+
+  // // GET req with id to return specific beer
+  // app.get('/restapi/beers/:id', (req, res) => {
+  //   Beer.findById(req.params.id, (err, beer) => {
+  //     res.send(beer);
+  //   });
+  // });
+
+  // GET req to /restapi/users returns all users
+  app.get('/restapi/users', (req, res) => {
+  // Check for query params 
+    if (Object.keys(req.query).length === 0) {
+      // If there aren't any get all users
+      User.find((err, users) => {
+        if (err) {
+          res.send(err);
+        }
+        // Send all users as JSON
+        res.json(users);
+      });
+    } else {
+      // If there are params use it as a search to
+      // find one user
+      User.find(req.query, (err, user) => {
+        if (err) {
+          res.send(err);
+        }
+        // Send that user as JSON
+        res.json(user);
+      });
+    }
   });
 
-    // GET req to /restapi/users returns all users
-  app.get('/restapi/allusers', (req, res) => {
-  // Use the User model to find all users
-    User.find((err, users) => {
-      if (err) {
-        res.send(err);
-      }
-      // Send all users as JSON
-      res.json(users);
-    });
-  });
-
-  // GET req with id to return specific user
-  app.get('/restapi/users/:id', (req, res) => {
-    User.findById(req.params.id, (err, user) => {
-      res.send(user);
-    });
-  });
+  // // GET req with id to return specific user
+  // app.get('/restapi/users/:id', (req, res) => {
+  //   User.findById(req.params.id, (err, user) => {
+  //     res.send(user);
+  //   });
+  // });
 
   // GET req to return users by last name
-  app.get('/restapi/users', (req, res) => {
-    console.log(req.query);
+  // app.get('/restapi/users', (req, res) => {
+  //   console.log(req.query);
 
-    // User.find(req.params.id, (err, user) => {
-    //   res.send(user);
-    // });
-  });
+  //   // User.find(req.params.id, (err, user) => {
+  //   //   res.send(user);
+  //   // });
+  // });
 
   // POST req to add a beer
   app.post('/restapi/addbeer', (req, res) => {
