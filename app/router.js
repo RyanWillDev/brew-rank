@@ -47,10 +47,10 @@ module.exports = function router(app) {
       if (err) {
         res.send(err);
       }
-    });
-    // Return all the  beers in the DB
-    Beer.find((err, beers) => {
-      res.json(beers);
+      // Return all the  beers in the DB
+      Beer.find((err, beers) => {
+        res.json(beers);
+      });
     });
   });
 };
