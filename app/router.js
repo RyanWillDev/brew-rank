@@ -141,6 +141,40 @@ module.exports = function router(app) {
     // update the beers total rating in the beers list
 
   // DELETE request with id to delete user
+  app.delete('/restapi/users', (req, res) => {
+    // Check if an _id was sent
+    if (req.query._id) {
+      // Remove user with sent _id
+      User.remove(req.query, (err) => {
+        if (err) {
+          res.send(err);
+        }
+      // Return the updated list of users
+        User.find((err, users) => {
+          res.json(users);
+        });
+      });
+    } else {
+      res.send('Please provide an _id');
+    }
+  });
 
   // DELETE request with id to delete beer
+  app.delete('/restapi/beers', (req, res) => {
+    // Check if an _id was sent
+    if (req.query._id) {
+      // Remove beer with sent _id
+      Beer.remove(req.query, (err) => {
+        if (err) {
+          res.send(err);
+        }
+      // Return the updated list of beers
+        Beer.find((err, beers) => {
+          res.json(beers);
+        });
+      });
+    } else {
+      res.send('Please provide an _id');
+    }
+  });
 };
