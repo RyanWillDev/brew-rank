@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 
 // Create a schema for users
 const userSchema = mongoose.Schema({
-  firstName: String,
-  lastName: String,
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   age: Number, // Must be at least 21
-  isAdmin: Boolean, // Value of true allows reporting
+  isAdmin: { type: Boolean, required: true, default: false }, // Value of true allows reporting
+  isLoggedIn: { type: Boolean, required: true, default: false },
   beers: [{
     name: String,
     rating: Number,
