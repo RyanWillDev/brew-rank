@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   age: Number, // Must be at least 21
-  isAdmin: { type: Boolean, required: true }, // Value of true allows reporting
+  isAdmin: { type: Boolean, required: true, default: false }, // Value of true allows reporting
+  isLoggedIn: { type: Boolean, required: true, default: false },
   beers: [{
     name: String,
     rating: Number,
@@ -17,18 +18,19 @@ const userSchema = mongoose.Schema({
   lastUpdateDate: Date, // Last time account updated
 });
 
-// Run on every save
-userSchema.pre('save', (next) => {
-  const currentDate = new Date(); // Create a new date obj
-  // Set the lastUpdateDate field to currentDate
-  this.lastUpdateDate = currentDate;
+// *** Not working. I think it needs to be in the POST req ***
+// // Run on every save
+// userSchema.pre('save', (next) => {
+//   const currentDate = new Date(); // Create a new date obj
+//   // Set the lastUpdateDate field to currentDate
+//   this.lastUpdateDate = currentDate;
 
-  // If there is no dateJoined field set that to the current date as well
-  if (!this.dateJoined) {
-    this.dateJoined = currentDate;
-  }
-  next();
-});
+//   // If there is no dateJoined field set that to the current date as well
+//   if (!this.dateJoined) {
+//     this.dateJoined = currentDate;
+//   }
+//   next();
+// });
 
 // Creat and export the User model
 const User = mongoose.model('User', userSchema);
