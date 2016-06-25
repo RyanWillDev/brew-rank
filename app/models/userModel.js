@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
   lastName: String,
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  age: Number, // Must be at least 21
+  age: { type: Number, required: true }, // Must be at least 21
   isAdmin: Boolean, // Value of true allows reporting
   beers: [{
     name: String,
