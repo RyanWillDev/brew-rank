@@ -119,17 +119,18 @@ module.exports = function router(app) {
 
   // POST req to add a user
   app.post('/restapi/users', (req, res) => {
-    // Create a newBeer from the data sent in request
+    // Create a newUser from the data sent in request
     const newUser = new User(req.body);
     // Save newUser to the DB
     newUser.save((err) => {
       if (err) {
         res.send(err);
+      } else {
+        // Return all the users in the DB
+        User.find((err, users) => { // App crashes without err here
+          res.json(users);
+        });
       }
-      // Return all the  beers in the DB
-      User.find((err, users) => { // App crashes without err here
-        res.json(users);
-      });
     });
   });
 
