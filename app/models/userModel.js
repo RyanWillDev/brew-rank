@@ -20,18 +20,19 @@ const userSchema = mongoose.Schema({
 
 // Run on every save
 userSchema.pre('save', (next) => {
+  const user = this;
   const currentDate = new Date(); // Create a new date obj
   // Set the lastUpdateDate field to currentDate
-  this.lastUpdateDate = currentDate;
+  user.lastUpdateDate = currentDate;
 
   // If there is no dateJoined field set that to the current date as well
-  if (!this.dateJoined) {
-    this.dateJoined = currentDate;
+  if (!user.dateJoined) {
+    user.dateJoined = currentDate;
   }
   next();
 });
 
-// Creat and export the User model
+// Create and export the User model
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
