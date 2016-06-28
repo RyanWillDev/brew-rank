@@ -67,19 +67,20 @@ module.exports = function router(app) {
       User.find((err, users) => {
         if (err) {
           res.send(err);
+        } else {
+          // Send all users as JSON
+          res.json(users);
         }
-        // Send all users as JSON
-        res.json(users);
       });
     } else {
-      // If there are params use it as a search to
-      // find one user
+      // If there are params use it as a search to find one user
       User.find(req.query, (err, user) => {
         if (err) {
           res.send(err);
+        } else {
+          // Send that user as JSON
+          res.json(user);
         }
-        // Send that user as JSON
-        res.json(user);
       });
     }
   });
@@ -109,11 +110,16 @@ module.exports = function router(app) {
     newBeer.save((err) => {
       if (err) {
         res.send(err);
+      } else {
+        // Return all the  beers in the DB
+        Beer.find((err, beers) => { // App crashes without err here
+          if (err) {
+            res.send(err);
+          } else {
+            res.json(beers);
+          }
+        });
       }
-      // Return all the  beers in the DB
-      Beer.find((err, beers) => { // App crashes without err here
-        res.json(beers);
-      });
     });
   });
 
@@ -128,7 +134,11 @@ module.exports = function router(app) {
       } else {
         // Return all the users in the DB
         User.find((err, users) => { // App crashes without err here
-          res.json(users);
+          if (err) {
+            res.send(err);
+          } else {
+            res.json(users);
+          }
         });
       }
     });
@@ -149,13 +159,19 @@ module.exports = function router(app) {
       User.remove(req.query, (err) => {
         if (err) {
           res.send(err);
+        } else {
+                // Return the updated list of users
+          User.find((err, users) => {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json(users);
+            }
+          });
         }
-      // Return the updated list of users
-        User.find((err, users) => {
-          res.json(users);
-        });
       });
     } else {
+      // If no _id was provided
       res.send('Please provide an _id');
     }
   });
@@ -168,13 +184,19 @@ module.exports = function router(app) {
       Beer.remove(req.query, (err) => {
         if (err) {
           res.send(err);
+        } else {
+          // Return the updated list of beers
+          Beer.find((err, beers) => {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json(beers);
+            }
+          });
         }
-      // Return the updated list of beers
-        Beer.find((err, beers) => {
-          res.json(beers);
-        });
       });
     } else {
+      // If no _id was provided
       res.send('Please provide an _id');
     }
   });
