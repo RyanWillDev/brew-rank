@@ -18,13 +18,13 @@ module.exports = function router(app) {
   app.get('/restapi/beers', (req, res) => {
   // Check for query params
     if (Object.keys(req.query).length === 0) {
-      // If there aren't any get all users
-      Beer.find((err, users) => {
+      // If there aren't any get all beers
+      Beer.find((err, beers) => {
         if (err) {
           res.send(err);
         }
         // Send all beers as JSON
-        res.json(users);
+        res.json(beers);
       });
     } else {
       // If there are params use it as a search to
