@@ -23,17 +23,17 @@ module.exports = function router(app) {
         if (err) {
           res.send(err);
         }
-        // Send all users as JSON
+        // Send all beers as JSON
         res.json(users);
       });
     } else {
       // If there are params use it as a search to
-      // find one user
+      // find one beer
       Beer.find(req.query, (err, beer) => {
         if (err) {
           res.send(err);
         }
-        // Send that user as JSON
+        // Send that beer as JSON
         res.json(beer);
       });
     }
