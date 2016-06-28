@@ -19,8 +19,8 @@ const userSchema = mongoose.Schema({
 });
 
 // Run on every save
-userSchema.pre('save', function checkDates(next) {
-  const user = this;
+userSchema.pre('save', function checkDates(next) { // Need function to use this value
+  const user = this;                               // of user being saved can't use =>
   const currentDate = new Date(); // Create a new date obj
   // Set the lastUpdateDate field to currentDate
   user.lastUpdateDate = currentDate;
