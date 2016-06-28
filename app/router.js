@@ -22,9 +22,10 @@ module.exports = function router(app) {
       Beer.find((err, beers) => {
         if (err) {
           res.send(err);
+        } else {
+          // Send all beers as JSON
+          res.json(beers);
         }
-        // Send all beers as JSON
-        res.json(beers);
       });
     } else {
       // If there are params use it as a search to
@@ -32,9 +33,10 @@ module.exports = function router(app) {
       Beer.find(req.query, (err, beer) => {
         if (err) {
           res.send(err);
+        } else {
+          // Send that beer as JSON
+          res.json(beer);
         }
-        // Send that beer as JSON
-        res.json(beer);
       });
     }
   });
