@@ -146,12 +146,29 @@ module.exports = function router(app) {
     });
   });
 
-  // POST req to add beer to users beer list
-    // If beer exists
-      // add the id to the and users rating to beer list
-    // Else
-      // create new beer and add rating and beer to users beer list
-    // update the beers total rating in the beers list
+  // PUT req to add beer to users beer list
+  app.put('/restapi/users', (req, res) => {
+    if (req.query._id) {
+      // If an _id was provided get and update user
+      User.findById(req.query._id, (err, user) => {
+        if (err) {
+          res.send(err);
+          // Check that the beer is not already in users list of beers
+          // Uses loose because of type difference
+        } else if (user.beers.every((beer) => beer._id != req.body._id)) {
+          // Is not already in the list so...
+          user.beers.push(req.body); // push to array...
+          user.save(); // save the user...
+          res.json(user); // and send back the updated user
+        } else {
+          // Error message if the beer has already been added.
+          res.send('This user has already added this beer. Please try another brew.');
+        }
+      });
+    } else {
+      res.send('Please provide an _id of the user in a query.');
+    }
+  });
 
   // DELETE request with id to delete user
   app.delete('/restapi/users', (req, res) => {
