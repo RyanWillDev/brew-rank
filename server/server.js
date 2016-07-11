@@ -11,7 +11,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 // Require router
-const router = require('./app/router');
+const router = require('./router');
 
 // Connect mongoose to database
 mongoose.connect('mongodb://localhost/brew-rank');
