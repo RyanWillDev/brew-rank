@@ -10,7 +10,6 @@ const userSchema = mongoose.Schema({
   isLoggedIn: { type: Boolean, required: true, default: false },
   age: { type: Number, required: true, min: 21 }, // Must be at least 21
   beers: [{
-    name: String,
     rating: Number,
     id: Number,
   }],
