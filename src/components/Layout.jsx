@@ -6,13 +6,17 @@ import Nav from './Nav';
 import LandingContent from './LandingContent';
 
 
-export default class extends Component {
+export default class Layout extends Component {
   render() {
     return (
       <div className="layout-container">
         <Nav />
-        <LandingContent />
+        {this.props.children}
       </div>
     );
   }
 }
+
+Layout.propTypes = {
+  children: React.PropTypes.object,
+};
