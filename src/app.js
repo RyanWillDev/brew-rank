@@ -1,9 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 
-render((
+// Import components
+import Layout from './components/Layout';
+
+const router = (
   <Router history={browserHistory}>
-    <Route path="/" component={} />
+    <Route path="/" component={Layout}>
+    </Route>
   </Router>
-), document.getElementById('root'));
+
+);
+
+render(router, document.getElementById('root'));
