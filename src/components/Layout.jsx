@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 
 // Import components
 import Nav from './Nav';
-import LandingContent from './LandingContent';
-
 
 export default class Layout extends Component {
   render() {

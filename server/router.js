@@ -20,7 +20,7 @@ module.exports = function router(app) {
   app.use(bodyParser.json());
 
   // Set CORS Headers
-  app.all((req, res, next) => {
+  app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'POST');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -270,5 +270,6 @@ module.exports = function router(app) {
     }
   });
 
+  // POST for Log In route
   app.post('/restapi/login', passport.authenticate('local'), handleLogIn);
 };
