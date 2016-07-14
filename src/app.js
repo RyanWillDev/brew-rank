@@ -9,8 +9,9 @@ import LandingContent from './components/LandingContent';
 import SignUpForm from './components/SignUpForm';
 import LogIn from './components/LogIn';
 
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 const router = (
-  <Router history={useRouterHistory(createHashHistory)({ queryKey: false })}>
+  <Router history={appHistory}>
     <Route path="/" component={Layout}>
       <IndexRoute component={LandingContent} />
       <Route path="/signup" component={SignUpForm} />

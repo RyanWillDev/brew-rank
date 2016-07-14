@@ -5,11 +5,62 @@ const User = require('./models/userModel');
 // Require body-parser to handle POST reqs
 const bodyParser = require('body-parser');
 
+// Require passport
+const passport = require('passport');
+
+// Require routes
+const handleLogIn = require('./routes/login');
+
+const LocalStrategy = require('passport-local').Strategy;
+
 // Pass Express as app into the router function
 module.exports = function router(app) {
   // Configure express to use body-parser as middleware for POSTS
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+
+  // Set CORS Headers
+  app.all((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'POST');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
+
+  // Configure express to use passport for Auth
+  app.use(passport.initialize());
+  //app.use(passport.session());
+
+  passport.use(new LocalStrategy({
+    usernameField: 'email',
+  },
+    (username, password, done) => {    // Find the user
+      User.findOne({ email: username /* shorthand key value are the same */ }, (err, user) => {
+
+        if (err) {
+          return done(err);
+        }
+
+        // If user is not found
+        if (!user) {
+          console.log('not found');
+          return done(null, false, { message: 'Incorrect email.' });
+        }
+
+        // If password is not correct
+        if (!user.password === password) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+
+        passport.serializeUser(function(user, done) {
+          done(null, user.id);
+        });
+
+        // If Auth passed
+        return done(null, user);
+      });
+    }
+  ));
 
   // Handle home route
   app.get('/', (request, response) => response.send('Hello World'));
@@ -219,4 +270,6 @@ module.exports = function router(app) {
       res.send('Please provide an _id');
     }
   });
+
+  app.post('/restapi/login', passport.authenticate('local'), handleLogIn);
 };

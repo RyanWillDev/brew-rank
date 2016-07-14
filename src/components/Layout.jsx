@@ -11,7 +11,7 @@ export default class Layout extends Component {
     return (
       <div className="layout-container">
         <Nav />
-        {this.props.children}
+        {React.cloneElement(this.props.children, this.props)}
       </div>
     );
   }
