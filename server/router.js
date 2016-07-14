@@ -43,7 +43,6 @@ module.exports = function router(app) {
 
         // If user is not found
         if (!user) {
-          console.log('not found');
           return done(null, false, { message: 'Incorrect email.' });
         }
 
