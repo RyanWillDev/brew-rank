@@ -29,7 +29,7 @@ module.exports = function router(app) {
 
   // Configure express to use passport for Auth
   app.use(passport.initialize());
-  //app.use(passport.session());
+  app.use(passport.session());
 
   passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -51,8 +51,8 @@ module.exports = function router(app) {
           return done(null, false, { message: 'Incorrect password.' });
         }
 
-        passport.serializeUser(function(user, done) {
-          done(null, user.id);
+        passport.serializeUser((user, done) => {
+          done(null, user);
         });
 
         // If Auth passed
