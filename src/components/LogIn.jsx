@@ -16,10 +16,15 @@ function serializeInputData(collection) {
 
 export default class LogIn extends Component {
   constructor(props) {
-    super();
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.state = {
+      alertClass: '',
+      message: '',
+    };
   }
 
-  handleLogin() {
+  handleLogin(event) {
     const url = 'http://127.0.0.1:3000/restapi/login'; /* ** Change for prod ** */
 
     // Creates new XMLHttpRequest for login
@@ -34,8 +39,14 @@ export default class LogIn extends Component {
       if (xhr.readyState === 4) {
         // Make sure Auth occured
         if (xhr.status === 200) {
-          window.location.replace('/#/profile');
+          const userID = JSON.parse(xhr.response);
+          window.location.replace(`/#/profile/${userID}`);
         }
+      } else {
+        event.persist();
+        event.preventDefault();
+        this.setState({ alertClass: 'alert alert-danger',
+          message: 'Incorrect email or password' });
       }
     };
 
@@ -68,6 +79,9 @@ export default class LogIn extends Component {
             </div>
           </div>
         </form>
+        </div>
+        <div className="row">
+          <div className={this.state.alertClass}>{this.state.message}</div>
         </div>
       </div>
     );

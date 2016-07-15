@@ -53,6 +53,10 @@ module.exports = function router(app) {
           done(null, user.id);
         });
 
+        passport.deserializeUser((user, done) => {
+          done(null, user.id);
+        });
+
         // If Auth passed
         return done(null, user);
       });
