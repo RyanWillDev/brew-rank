@@ -29,14 +29,12 @@ module.exports = function router(app) {
 
   // Configure express to use passport for Auth
   app.use(passport.initialize());
-  app.use(passport.session());
 
   passport.use(new LocalStrategy({
     usernameField: 'email',
   },
     (username, password, done) => {    // Find the user
-      User.findOne({ email: username /* shorthand key value are the same */ }, (err, user) => {
-
+      User.findOne({ email: username }, (err, user) => {
         if (err) {
           return done(err);
         }
@@ -47,12 +45,12 @@ module.exports = function router(app) {
         }
 
         // If password is not correct
-        if (!user.password === password) {
+        if (user.password !== password) {
           return done(null, false, { message: 'Incorrect password.' });
         }
 
         passport.serializeUser((user, done) => {
-          done(null, user);
+          done(null, user.id);
         });
 
         // If Auth passed

@@ -34,7 +34,7 @@ export default class LogIn extends Component {
       if (xhr.readyState === 4) {
         // Make sure Auth occured
         if (xhr.status === 200) {
-          // Redirect user to their profile <------ ****TODO****
+          window.location.replace('/#/profile');
         }
       }
     };
@@ -49,6 +49,7 @@ export default class LogIn extends Component {
       <div className="container">
         <h1 className="text-center">Welcome Back!</h1>
         <div className="row">
+        <form action="http://127.0.0.1:3000/restapi/login" method="post">
           <div className="form-group">
             <div className="col-sm-6 col-sm-offset-3">
               <input type="email" className="form-control"
@@ -66,6 +67,7 @@ export default class LogIn extends Component {
               </button>
             </div>
           </div>
+        </form>
         </div>
       </div>
     );
