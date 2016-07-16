@@ -270,6 +270,32 @@ module.exports = function router(app) {
       }
     });
   });
+
+  // Route middle ware to verify token
+  app.use((req, res, next) => {
+    const token = req.body.token;
+
+    // Decode token
+    if (token) {
+      // Verifies secret and checks if expired
+      jwt.verify(token, app.get('superSecret', (err, decoded) => {
+        if (err) {
+          res.json({ success: false, message: 'Failed to authenticate token' });
+        } else {
+          // If everythin is good, save to req for use in other routes
+          req.decoded = decoded;
+          next();
+        }
+      }));
+    } else {
+      // If there is no token
+      // return error
+      res.status(403).send({
+        success: false,
+        message: 'No token provided',
+      });
+    }
+  });
 };
 
 
