@@ -5,19 +5,19 @@ const User = require('./models/userModel');
 // Require body-parser to handle POST reqs
 const bodyParser = require('body-parser');
 
-// Require passport
-const passport = require('passport');
+// Require JSON Web Tokens
+const jwt = require('jsonwebtoken');
 
-// Require routes
-const handleLogIn = require('./routes/login');
-
-const LocalStrategy = require('passport-local').Strategy;
+// Require config file
+const config = require('./config');
 
 // Pass Express as app into the router function
 module.exports = function router(app) {
   // Configure express to use body-parser as middleware for POSTS
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+
+  app.set('superSecret', config.secret);
 
   // Set CORS Headers
   app.use((req, res, next) => {
@@ -26,42 +26,6 @@ module.exports = function router(app) {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
-
-  // Configure express to use passport for Auth
-  app.use(passport.initialize());
-
-  passport.use(new LocalStrategy({
-    usernameField: 'email',
-  },
-    (username, password, done) => {    // Find the user
-      User.findOne({ email: username }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
-
-        // If user is not found
-        if (!user) {
-          return done(null, false, { message: 'Incorrect email.' });
-        }
-
-        // If password is not correct
-        if (user.password !== password) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-
-        passport.serializeUser((user, done) => {
-          done(null, user.id);
-        });
-
-        passport.deserializeUser((user, done) => {
-          done(null, user.id);
-        });
-
-        // If Auth passed
-        return done(null, user);
-      });
-    }
-  ));
 
   // Handle home route
   app.get('/', (request, response) => response.send('Hello World'));
@@ -273,5 +237,55 @@ module.exports = function router(app) {
   });
 
   // POST for Log In route
-  app.post('/restapi/login', passport.authenticate('local'), handleLogIn);
+  app.post('/restapi/login', (req, res) => {
+    // Look for user with provided credentials
+    User.findOne({ email: req.body.email }, (err, user) => {
+      if (err) {
+        throw err;
+      }
+
+      if (!user) {
+        // If user is not found return error message
+        res.json({ success: false, message: 'A user with that email was not found.' });
+      } else if (user) {
+        // Check if password matches
+        if (user.password !== req.body.password) {
+          // If password doesn't match return error message
+          res.json({ success: false, message: 'Password was incorrect' });
+        } else {
+          // If the password is correct
+          // Create a JWT 
+          const token = jwt.sign({ user: user._id }, app.get('superSecret'), {
+            expiresIn: 3600,
+            issuer: 'brewrank.com',
+          });
+
+          res.json({
+            success: true,
+            message: 'You have been authenticated.',
+            token,
+            isAdmin: user.isAdmin,
+          });
+        }
+      }
+    });
+  });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

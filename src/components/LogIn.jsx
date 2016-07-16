@@ -17,42 +17,10 @@ function serializeInputData(collection) {
 export default class LogIn extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
     this.state = {
       alertClass: '',
       message: '',
     };
-  }
-
-  handleLogin(event) {
-    const url = 'http://127.0.0.1:3000/restapi/login'; /* ** Change for prod ** */
-
-    // Creates new XMLHttpRequest for login
-    const xhr = new XMLHttpRequest();
-    // Uses the serializeInputData from above to create an
-    // Arr from of the inputs and then makes an Obj from that Arr
-    const data = serializeInputData(document.getElementsByTagName('input'));
-
-    // When the response is received
-    xhr.onreadystatechange = () => {
-      // Check ready state
-      if (xhr.readyState === 4) {
-        // Make sure Auth occured
-        if (xhr.status === 200) {
-          const userID = JSON.parse(xhr.response);
-          window.location.replace(`/#/profile/${userID}`);
-        }
-      } else {
-        event.persist();
-        event.preventDefault();
-        this.setState({ alertClass: 'alert alert-danger',
-          message: 'Incorrect email or password' });
-      }
-    };
-
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-    xhr.send(data);
   }
 
   render() {
@@ -73,7 +41,7 @@ export default class LogIn extends Component {
               />
             </div>
             <div className="col-sm-12 col-sm-offset-3">
-              <button type="submit" className="btn btn-default" onClick={this.handleLogin}>
+              <button type="submit" className="btn btn-default">
                 Submit
               </button>
             </div>
