@@ -57,26 +57,6 @@ module.exports = function router(app) {
     }
   });
 
-  // *** Commented out for historical puropses ***
-  // // GET req to /restapi/beers returns all beers
-  // app.get('/restapi/allbeers', (req, res) => {
-  //   // Use the Beer model to find all beers
-  //   Beer.find((err, beers) => {
-  //     if (err) {
-  //       res.send(err);
-  //     }
-  //     // Send all beers as JSON
-  //     res.json(beers);
-  //   });
-  // });
-
-  // // GET req with id to return specific beer
-  // app.get('/restapi/beers/:id', (req, res) => {
-  //   Beer.findById(req.params.id, (err, beer) => {
-  //     res.send(beer);
-  //   });
-  // });
-
   // GET req to /restapi/users returns all users
   app.get('/restapi/users', (req, res) => {
   // Check for query params
@@ -103,23 +83,6 @@ module.exports = function router(app) {
     }
   });
 
-  // *** Commented out for historical puropses ***
-  // // GET req with id to return specific user
-  // app.get('/restapi/users/:id', (req, res) => {
-  //   User.findById(req.params.id, (err, user) => {
-  //     res.send(user);
-  //   });
-  // });
-
-  // GET req to return users by last name
-  // app.get('/restapi/users', (req, res) => {
-  //   console.log(req.query);
-
-  //   // User.find(req.params.id, (err, user) => {
-  //   //   res.send(user);
-  //   // });
-  // });
-
   // POST req to add a beer
   app.post('/restapi/beers', (req, res) => {
     // Create a newBeer from the data sent in request
@@ -130,7 +93,7 @@ module.exports = function router(app) {
         res.send(err);
       } else {
         // Return all the  beers in the DB
-        Beer.find((err, beers) => { // App crashes without err here
+        Beer.find((err, beers) => { // eslint-disable-line
           if (err) {
             res.send(err);
           } else {
@@ -151,7 +114,7 @@ module.exports = function router(app) {
         res.send(err);
       } else {
         // Return all the users in the DB
-        User.find((err, users) => { // App crashes without err here
+        User.find((err, users) => {  // eslint-disable-line
           if (err) {
             res.send(err);
           } else {
@@ -171,7 +134,7 @@ module.exports = function router(app) {
           res.send(err);
           // Check that the beer is not already in users list of beers
           // Uses loose because of type difference
-        } else if (user.beers.every((beer) => beer._id != req.body._id)) {
+        } else if (user.beers.every((beer) => beer._id !== req.body._id)) {
           // Is not already in the list so...
           user.beers.push(req.body); // push to array...
           user.save(); // save the user...
@@ -196,7 +159,7 @@ module.exports = function router(app) {
           res.send(err);
         } else {
                 // Return the updated list of users
-          User.find((err, users) => {
+          User.find((err, users) => { // eslint-disable-line
             if (err) {
               res.send(err);
             } else {
@@ -221,7 +184,7 @@ module.exports = function router(app) {
           res.send(err);
         } else {
           // Return the updated list of beers
-          Beer.find((err, beers) => {
+          Beer.find((err, beers) => { // eslint-disable-line
             if (err) {
               res.send(err);
             } else {
@@ -254,7 +217,7 @@ module.exports = function router(app) {
           res.json({ success: false, message: 'Password was incorrect' });
         } else {
           // If the password is correct
-          // Create a JWT 
+          // Create a JWT
           const token = jwt.sign({ user: user._id }, app.get('superSecret'), {
             expiresIn: 3600,
             issuer: 'brewrank.com',
@@ -271,22 +234,21 @@ module.exports = function router(app) {
     });
   });
 
-  // Route middle ware to verify token
+  // Route middleware to verify token
   app.use((req, res, next) => {
-    const token = req.body.token;
-
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
     // Decode token
     if (token) {
       // Verifies secret and checks if expired
-      jwt.verify(token, app.get('superSecret', (err, decoded) => {
+      jwt.verify(token, app.get('superSecret'), (err, decoded) => {
         if (err) {
           res.json({ success: false, message: 'Failed to authenticate token' });
         } else {
           // If everythin is good, save to req for use in other routes
-          req.decoded = decoded;
+          req.decoded = decoded; // eslint-disable-line
           next();
         }
-      }));
+      });
     } else {
       // If there is no token
       // return error
@@ -296,22 +258,6 @@ module.exports = function router(app) {
       });
     }
   });
+
+  // Routes passed this comment are protected by JWT Auth
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
