@@ -11,6 +11,8 @@ const jwt = require('jsonwebtoken');
 // Require config file
 const config = require('./config');
 
+const express = require('express');
+
 // Pass Express as app into the router function
 module.exports = function router(app) {
   // Configure express to use body-parser as middleware for POSTS
@@ -209,12 +211,12 @@ module.exports = function router(app) {
 
       if (!user) {
         // If user is not found return error message
-        res.json({ success: false, message: 'A user with that email was not found.' });
+        res.status(401).json({ success: false, message: 'A user with that email was not found.' });
       } else if (user) {
         // Check if password matches
         if (user.password !== req.body.password) {
           // If password doesn't match return error message
-          res.json({ success: false, message: 'Password was incorrect' });
+          res.status(401).json({ success: false, message: 'Password was incorrect' });
         } else {
           // If the password is correct
           // Create a JWT
@@ -228,23 +230,26 @@ module.exports = function router(app) {
             message: 'You have been authenticated.',
             token,
             isAdmin: user.isAdmin,
+            id: user._id,
           });
         }
       }
     });
   });
 
+  // Create a new instance of Router to handle routes that need authentication
+  const authRoutes = express.Router(); //eslint-disable-line
   // Route middleware to verify token
-  app.use((req, res, next) => {
+  authRoutes.use((req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     // Decode token
     if (token) {
       // Verifies secret and checks if expired
       jwt.verify(token, app.get('superSecret'), (err, decoded) => {
         if (err) {
-          res.json({ success: false, message: 'Failed to authenticate token' });
+          res.status(401).json({ success: false, message: 'Failed to authenticate token' });
         } else {
-          // If everythin is good, save to req for use in other routes
+          // If everything is good, save to req for use in other routes
           req.decoded = decoded; // eslint-disable-line
           next();
         }
@@ -258,6 +263,4 @@ module.exports = function router(app) {
       });
     }
   });
-
-  // Routes passed this comment are protected by JWT Auth
 };
