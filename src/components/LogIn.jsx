@@ -1,26 +1,46 @@
 import React, { Component } from 'react';
 
-/* Serializes the data from an Array like object
-/* Too avoid pulling in jQuery and to learn more about JS */
-function serializeInputData(collection) {
-  // Returns and stringifies the result of reduce
-  return JSON.stringify(Array.from(collection).reduce((acc, input) => {
-    // Creates a key vaule pair for each input
-    // if it doesn't already exist
-    if (!acc[input.name]) {
-      acc[input.name] = input.value; // eslint-disable-line
-    }
-    return acc;
-  }, {}));
-}
-
 export default class LogIn extends Component {
   constructor(props) {
     super(props);
+    this.handleLogIn = this.handleLogIn.bind(this);
     this.state = {
       alertClass: '',
       message: '',
     };
+  }
+
+  handleLogIn(event) {
+    event.preventDefault();
+    const _this = this;
+    const url = 'http://127.0.0.1:3000/restapi/login';
+    // Get email and password
+    const data = JSON.stringify({
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    });
+
+    // Open AJAX request
+    const xhr = new XMLHttpRequest;
+    xhr.open('POST', url, true);
+    // Check the status of the request
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        const res = JSON.parse(xhr.responseText);
+        if (xhr.status === 200) {
+          // Store token in cookie
+          sessionStorage.setItem('brtoken', res.token);
+          // If auth passed redirect to users profile
+          window.location = `#/profile/${res.id}`;
+        } else if (xhr.status === 401) {
+          // If auth failed show message
+          _this.setState({ message: res.message, alertClass: 'alert alert-danger' });
+        }
+      }
+    };
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(data);
   }
 
   render() {
@@ -28,15 +48,15 @@ export default class LogIn extends Component {
       <div className="container">
         <h1 className="text-center">Welcome Back!</h1>
         <div className="row">
-        <form action="http://127.0.0.1:3000/restapi/login" method="post">
+        <form action="http://127.0.0.1:3000/restapi/login" onSubmit={this.handleLogIn} method="post">
           <div className="form-group">
             <div className="col-sm-6 col-sm-offset-3">
-              <input type="email" className="form-control"
+              <input id="email" type="email" className="form-control"
                 placeholder="Email Address" name="email" required
               />
             </div>
             <div className="col-sm-6 col-sm-offset-3">
-              <input type="password" className="form-control"
+              <input id="password" type="password" className="form-control"
                 placeholder="Password" name="password" required
               />
             </div>
