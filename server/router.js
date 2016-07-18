@@ -225,7 +225,7 @@ module.exports = function router(app) {
             issuer: 'brewrank.com',
           });
 
-          res.json({
+          res.status(200).json({
             success: true,
             message: 'You have been authenticated.',
             token,
