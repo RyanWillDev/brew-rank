@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import LandingContent from './components/LandingContent';
 import SignUpForm from './components/SignUpForm';
 import LogIn from './components/LogIn';
+import UserProfile from './components/UserProfile';
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 const router = (
@@ -16,7 +17,7 @@ const router = (
       <IndexRoute component={LandingContent} />
       <Route path="/signup" component={SignUpForm} />
       <Route path="/login" component={LogIn} />
-      <Route path="/profile/:userId" component={SignUpForm} />
+      <Route path="/profile/:userId" component={UserProfile} />
     </Route>
   </Router>
 

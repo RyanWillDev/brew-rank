@@ -11,8 +11,6 @@ const jwt = require('jsonwebtoken');
 // Require config file
 const config = require('./config');
 
-const express = require('express');
-
 // Pass Express as app into the router function
 module.exports = function router(app) {
   // Configure express to use body-parser as middleware for POSTS
@@ -24,8 +22,8 @@ module.exports = function router(app) {
   // Set CORS Headers
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'POST');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+    res.header('Access-Control-Allow-Headers', 'Origin, x-access-token, Content-Type, Accept');
     next();
   });
 
@@ -237,10 +235,8 @@ module.exports = function router(app) {
     });
   });
 
-  // Create a new instance of Router to handle routes that need authentication
-  const authRoutes = express.Router(); //eslint-disable-line
   // Route middleware to verify token
-  authRoutes.use((req, res, next) => {
+  const authRoutes = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     // Decode token
     if (token) {
@@ -262,5 +258,37 @@ module.exports = function router(app) {
         message: 'No token provided',
       });
     }
+  };
+
+  // GET to receive all of a users information once authenticated
+  app.get('/restapi/profile/:userID', authRoutes, (req, res) => {
+    // Get the userID from the params object
+    const { userID } = req.params;
+
+    // Search for the user by ID
+    User.findOne({ _id: userID }, (err, user) => {
+      if (err) {
+        throw err;
+      }
+
+      // Get relevant parts of the user object
+      const userData = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        beers: user.beers,
+        isAdmin: user.isAdmin,
+      };
+      // Send back the data
+      res.status(200).json(userData);
+    });
   });
 };
+
+
+
+
+
+
+
+
+
