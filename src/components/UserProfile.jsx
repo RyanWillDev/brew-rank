@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// Import components
+import BeerList from './BeerList';
+
 export default class UserProfile extends Component {
   constructor() {
     super();
@@ -8,9 +11,10 @@ export default class UserProfile extends Component {
     };
   }
 
+  // Runs before component is mounted to get all the user data
   componentWillMount() {
     const _this = this;
-    const url = `http://localhost:3000/restapi/profile/${this.props.params.userId}`;
+    const url = `http://localhost:3000/restapi/profile/${this.props.params.userID}`;
     // Open AJAX request
     const xhr = new XMLHttpRequest;
     xhr.open('GET', url, true);
@@ -30,11 +34,13 @@ export default class UserProfile extends Component {
 
   render() {
     return (
-      <div>{this.state.userData.firstName}</div>
+      <div>
+        <BeerList beers={this.state.userData.beers}/>
+      </div>
     );
   }
 }
 
-UserProfile.PropTypes = {
-  params: React.PropTypes.Object,
+UserProfile.propTypes = {
+  params: React.PropTypes.object,
 };

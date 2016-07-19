@@ -17,7 +17,7 @@ const router = (
       <IndexRoute component={LandingContent} />
       <Route path="/signup" component={SignUpForm} />
       <Route path="/login" component={LogIn} />
-      <Route path="/profile/:userId" component={UserProfile} />
+      <Route path="/profile/:userID" component={UserProfile} />
     </Route>
   </Router>
 

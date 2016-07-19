@@ -227,7 +227,6 @@ module.exports = function router(app) {
             success: true,
             message: 'You have been authenticated.',
             token,
-            isAdmin: user.isAdmin,
             id: user._id,
           });
         }
@@ -283,12 +282,3 @@ module.exports = function router(app) {
     });
   });
 };
-
-
-
-
-
-
-
-
-
