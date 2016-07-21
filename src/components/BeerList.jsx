@@ -17,12 +17,16 @@ export default class BeerList extends Component {
 
   render() {
     return (
-      <ul className="beer-list">
-        {this.state.beers.map((beer, i) =>
-          <SingleBeer key={i} name={beer._id.name} yourRating={beer.rating}
-            overallRating={beer._id.rating}
-          />)}
-      </ul>
+      <div className="container">
+      <h1>Your Beers</h1>
+      <button className="btn btn-primary">Edit your list</button>
+        <ul className="beer-list" style={{ listStyle: 'none', paddingTop: 50 }}>
+          {this.state.beers.map((beer, i) =>
+            <SingleBeer key={i} name={beer._id.name} yourRating={beer.rating}
+              overallRating={beer._id.rating} style={beer._id.style}
+            />)}
+        </ul>
+      </div>
     );
   }
 }
