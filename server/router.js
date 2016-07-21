@@ -269,16 +269,19 @@ module.exports = function router(app) {
       if (err) {
         throw err;
       }
-
+      let userData;
+      Beer.populate(user, 'beers._id', (err, user) => {
+        console.log(user.beers);
+        userData = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          beers: user.beers,
+          isAdmin: user.isAdmin,
+        };
+        res.status(200).json(userData);
+      });
       // Get relevant parts of the user object
-      const userData = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        beers: user.beers,
-        isAdmin: user.isAdmin,
-      };
       // Send back the data
-      res.status(200).json(userData);
     });
   });
 };

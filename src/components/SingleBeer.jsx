@@ -7,15 +7,18 @@ export default class SingleBeer extends Component {
   render() {
     return (
       <li className="beer">
-        <span className="name">id: {this.props.id}</span>
+        <span className="name">name: {this.props.name}</span>
         <br/>
-        <span className="rating">rating: {this.props.rating}</span>
+        <span className="rating">your rating: {this.props.yourRating}</span>
+        <br/>
+        <span className="rating">overall rating: {this.props.overallRating}</span>
       </li>
     );
   }
 }
 
 SingleBeer.propTypes = {
-  id: React.PropTypes.string,
-  rating: React.PropTypes.number,
+  name: React.PropTypes.string,
+  yourRating: React.PropTypes.number,
+  overallRating: React.PropTypes.number,
 };

@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
   age: { type: Number, required: true, min: 21 }, // Must be at least 21
   beers: [{
     rating: Number,
-    id: Number,
+    id: { type: Schema.Types.ObjectId, ref: 'Beer', isRequired: true },
   }],
   dateJoined: Date, // Sign up date
   lastUpdateDate: Date, // Last time account updated

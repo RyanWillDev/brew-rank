@@ -19,7 +19,9 @@ export default class BeerList extends Component {
     return (
       <ul className="beer-list">
         {this.state.beers.map((beer, i) =>
-          <SingleBeer key={i} id={beer._id} rating={beer.rating} />)}
+          <SingleBeer key={i} name={beer._id.name} yourRating={beer.rating}
+            overallRating={beer._id.rating}
+          />)}
       </ul>
     );
   }
