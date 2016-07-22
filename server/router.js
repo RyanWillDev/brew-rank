@@ -271,7 +271,6 @@ module.exports = function router(app) {
       }
       let userData;
       Beer.populate(user, 'beers._id', (err, user) => {
-        console.log(user.beers);
         userData = {
           firstName: user.firstName,
           lastName: user.lastName,
