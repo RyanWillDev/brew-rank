@@ -1,51 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class SingleBeer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showRemoveButtons: this.props.listIsBeingEdited,
-    };
-  }
+const SingleBeer = (props) => {
+  const spanStyle = {
+    paddingRight: 50,
+    display: 'inline-block',
+    textTransform: 'capitalize',
+  };
 
-  componentWillReceiveProps(newProps = {}) {
-    this.setState({ showRemoveButtons: newProps.listIsBeingEdited });
-  }
+  const rowStyle = {
+    marginTop: 24,
+  };
 
-  render() {
-    const spanStyle = {
-      paddingRight: 50,
-      display: 'inline-block',
-      textTransform: 'capitalize',
-    };
+  const removeButtonStyle = {
+    // Show or hide buttons
+    display: props.listIsBeingEdited ? 'inline-block' : 'none',
+  };
 
-    const rowStyle = {
-      marginTop: 24,
-    };
+  return (
+    <li style={rowStyle}className="row">
+      <div className="col-sm-12">
+        <span style={spanStyle}>Name: {props.name}</span>
+        <span style={spanStyle}>Style: {props.style}</span>
+        <span style={spanStyle}>Your rating:
+        <input type="number"
+          defaultValue={props.yourRating} disabled={!props.listIsBeingEdited}
+          min="0" max="5"
+        />
+        </span>
+        <span style={spanStyle}>Overall rating: {props.overallRating}</span>
+        <button className="btn btn-danger" style={removeButtonStyle}>Remove</button>
+      </div>
+    </li>
+  );
+};
 
-    const removeButtonStyle = {
-      // Show or hide buttons
-      display: this.state.showRemoveButtons ? 'inline-block' : 'none',
-    };
-
-    return (
-      <li style={rowStyle}className="row">
-        <div className="col-sm-12">
-          <span style={spanStyle}>Name: {this.props.name}</span>
-          <span style={spanStyle}>Style: {this.props.style}</span>
-          <span style={spanStyle}>Your rating:
-          <input type="number"
-            defaultValue={this.props.yourRating} disabled={!this.state.showRemoveButtons}
-            min="0" max="5"
-          />
-          </span>
-          <span style={spanStyle}>Overall rating: {this.props.overallRating}</span>
-          <button className="btn btn-danger" style={removeButtonStyle}>Remove</button>
-        </div>
-      </li>
-    );
-  }
-}
+export default SingleBeer;
 
 SingleBeer.propTypes = {
   name: React.PropTypes.string,
