@@ -12,7 +12,7 @@ const SingleBeer = (props) => {
   };
 
   const removeButtonStyle = {
-    // Show or hide buttons
+    // Show or hide buttons depending on whether the list is being edited or not
     display: props.listIsBeingEdited ? 'inline-block' : 'none',
   };
 

@@ -18,6 +18,8 @@ export default class BeerList extends Component {
   }
 
   handleEditClick() {
+    // Keeps track of whether the list is being edited or not
+    // Sends that info to SingleBeer as a prop
     this.setState({ listIsBeingEdited: !this.state.listIsBeingEdited });
   }
 
