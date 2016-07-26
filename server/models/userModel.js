@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   isAdmin: { type: Boolean, required: true, default: false }, // Value of true allows reporting
   isLoggedIn: { type: Boolean, required: true, default: false },
-  age: { type: Number, required: true, min: 21 }, // Must be at least 21
+  bday: { type: Date, required: true }, // Must be at least 21
   beers: [{
     rating: Number,
     id: { type: mongoose.Schema.ObjectId, ref: 'Beer', isRequired: true },

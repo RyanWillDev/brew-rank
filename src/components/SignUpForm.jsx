@@ -10,7 +10,7 @@ export default class SignUpForm extends Component {
     };
   }
 
-  is21() {
+  userIs21() {
     // Get today's date
     const today = new Date();
     // Get the date provided by user
@@ -21,6 +21,37 @@ export default class SignUpForm extends Component {
     // this will be used to either alert the user they
     // are too young or pass the last check before submitting form.
     return age >= 21;
+  }
+
+  submitFormData() {
+    const url = 'http://localhost:3000/restapi/users';
+    const data = JSON.stringify({
+      firstName: this.refs.firstName.value,
+      lastName: this.refs.lastName.value,
+      password: this.refs.pw.value,
+      email: this.refs.email.value,
+      bday: new Date(this.refs.birthday.value),
+    });
+    const xhr = new XMLHttpRequest;
+    xhr.open('POST', url, true);
+    // Check the status of the request
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        const res = JSON.parse(xhr.responseText);
+        if (xhr.status === 200) {
+          // Store token in cookie
+          sessionStorage.setItem('brtoken', res.token);
+          // If auth passed redirect to users profile
+          window.location = `#/profile/${res.id}`;
+        } else if (xhr.status === 401) {
+          // If auth failed show message
+          _this.setState({ message: res.message, alertClass: 'alert alert-danger' });
+        }
+      }
+    };
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(data);
   }
 
   handleSubmit(e) {
@@ -38,17 +69,17 @@ export default class SignUpForm extends Component {
         alertClass: 'alert alert-danger',
       });
       // Make sure the user is at least 21
-    } else if (!this.is21()) {
+    } else if (!this.userIs21()) {
       this.setState({
-        message: 'Oooh... come back when your 21',
+        message: 'Oooh... come back when your 21!',
         alertClass: 'alert alert-danger',
       });
     } else {
       this.setState({
-        message: '',
-        alertClass: '',
+        message: 'Success!',
+        alertClass: 'alert alert-success',
       });
-      console.log('submitting');
+      this.submitFormData();
     }
   }
 
