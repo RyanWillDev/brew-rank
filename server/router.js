@@ -113,13 +113,17 @@ module.exports = function router(app) {
       if (err) {
         res.send(err);
       } else {
-        // Return all the users in the DB
-        User.find((err, users) => {  // eslint-disable-line
-          if (err) {
-            res.send(err);
-          } else {
-            res.json(users);
-          }
+        // Create JWT to sign in new user
+        const token = jwt.sign({ user: newUser._id }, app.get('superSecret'), {
+          expiresIn: 3600,
+          issuer: 'brewrank.com',
+        });
+
+        res.status(200).json({
+          success: true,
+          message: 'You have been authenticated.',
+          token,
+          id: newUser._id,
         });
       }
     });
@@ -238,7 +242,7 @@ module.exports = function router(app) {
   const authRoutes = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     // Decode token
-    if (token) {
+    if (token !== 'undefined') {
       // Verifies secret and checks if expired
       jwt.verify(token, app.get('superSecret'), (err, decoded) => {
         if (err) {
