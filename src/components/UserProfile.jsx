@@ -34,7 +34,8 @@ export default class UserProfile extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
+      <h2 className="text-center text-capitalize">Hello, {this.state.userData.firstName}!</h2>
         <BeerList beers={this.state.userData.beers}/>
       </div>
     );
