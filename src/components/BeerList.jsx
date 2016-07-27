@@ -26,7 +26,7 @@ export default class BeerList extends Component {
   render() {
     return (
       <div className="container">
-      <h1>Your Beers</h1>
+      <h3>Your Beers</h3>
 
       <button style={{ float: 'right' }} onClick={this.handleEditClick}
         className="btn btn-primary"
@@ -39,7 +39,7 @@ export default class BeerList extends Component {
         className="btn btn-success"
       >Add a Beer</button>
 
-        <ul className="beer-list" style={{ listStyle: 'none', paddingTop: 50 }}>
+        <ul className="beer-list" style={{ listStyle: 'none', paddingTop: 32 }}>
           {this.state.beers.map((beer, i) =>
             <SingleBeer key={i} name={beer._id.name} yourRating={beer.rating}
               overallRating={beer._id.rating} style={beer._id.style}
