@@ -1,14 +1,20 @@
 {
-    "extends": "airbnb",
-    "plugins": [
-        "react"
-    ],
-    "env":  {
-      "browser": true,
-      "node": true,
-      "jquery": true
-    },
-    "rules": {
-      "space-before-function-paren": 0
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     }
+  },
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "env":  {
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "rules": {
+    "space-before-function-paren": 0
+  }
 }
