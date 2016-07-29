@@ -1,11 +1,11 @@
 import { createStore, compose } from 'redux';
-import beerList from './reducers/beerListReducer';
+import rootReducer from './reducers/rootReducer';
 
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
 
-const store = createStore(beerList, enhancers);
+const store = createStore(rootReducer, enhancers);
 
 export default store;
