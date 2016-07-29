@@ -5,16 +5,9 @@ export default class BeerList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      beers: [],
       listIsBeingEdited: false,
     };
     this.handleEditClick = this.handleEditClick.bind(this);
-  }
-
-  // Called when the AJAX call in UserProfile is finished
-  // updates the beers array
-  componentWillReceiveProps(newProps = {}) {
-    this.setState({ beers: newProps.beers });
   }
 
   handleEditClick() {
@@ -26,24 +19,29 @@ export default class BeerList extends Component {
   render() {
     return (
       <div className="container">
-      <h3>Your Beers</h3>
+        <h3>Your Beers</h3>
 
-      <button style={{ float: 'right' }} onClick={this.handleEditClick}
-        className="btn btn-primary"
-      >
-      {this.state.listIsBeingEdited ? 'Save your list' : 'Edit your list'}
-      </button>
+        <button
+          style={{ float: 'right' }} onClick={this.handleEditClick}
+          className="btn btn-primary"
+        >
+        {this.state.listIsBeingEdited ? 'Save your list' : 'Edit your list'}
+        </button>
 
-      <button style ={{ float: 'right',
-        display: this.state.listIsBeingEdited ? 'inline-block' : 'none' }}
-        className="btn btn-success"
-      >Add a Beer</button>
+        <button
+          style={{ float: 'right',
+          display: this.state.listIsBeingEdited ? 'inline-block' : 'none' }}
+          className="btn btn-success"
+        >Add a Beer</button>
 
         <ul className="beer-list" style={{ listStyle: 'none', paddingTop: 32 }}>
-          {this.state.beers.map((beer, i) =>
-            <SingleBeer key={i} name={beer._id.name} yourRating={beer.rating}
+          {this.props.usersBeers.map((beer, i) =>
+            /* eslint-disable */ // Disabling for _id that is how it is returned from DB
+            <SingleBeer
+              key={i} name={beer._id.name} yourRating={beer.rating}
               overallRating={beer._id.rating} style={beer._id.style}
               listIsBeingEdited={this.state.listIsBeingEdited}
+              /* eslint-disable */
             />)}
         </ul>
       </div>
@@ -52,5 +50,5 @@ export default class BeerList extends Component {
 }
 
 BeerList.propTypes = {
-  beers: React.PropTypes.array,
+  usersBeers: React.PropTypes.array,
 };

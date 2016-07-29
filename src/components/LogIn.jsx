@@ -48,25 +48,27 @@ export default class LogIn extends Component {
       <div className="container">
         <h1 className="text-center">Welcome Back!</h1>
         <div className="row">
-        <form action="http://127.0.0.1:3000/restapi/login" onSubmit={this.handleLogIn} method="post">
-          <div className="form-group">
-            <div className="col-sm-6 col-sm-offset-3">
-              <input id="email" type="email" className="form-control"
-                placeholder="Email Address" name="email" required
-              />
+          <form action="http://127.0.0.1:3000/restapi/login" onSubmit={this.handleLogIn} method="post">
+            <div className="form-group">
+              <div className="col-sm-6 col-sm-offset-3">
+                <input
+                  id="email" type="email" className="form-control"
+                  placeholder="Email Address" name="email" required
+                />
+              </div>
+              <div className="col-sm-6 col-sm-offset-3">
+                <input
+                  id="password" type="password" className="form-control"
+                  placeholder="Password" name="password" required
+                />
+              </div>
+              <div className="col-sm-12 col-sm-offset-3">
+                <button type="submit" className="btn btn-default">
+                  Submit
+                </button>
+              </div>
             </div>
-            <div className="col-sm-6 col-sm-offset-3">
-              <input id="password" type="password" className="form-control"
-                placeholder="Password" name="password" required
-              />
-            </div>
-            <div className="col-sm-12 col-sm-offset-3">
-              <button type="submit" className="btn btn-default">
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
+          </form>
         </div>
         <div className="row">
           <div className={this.state.alertClass}>{this.state.message}</div>
