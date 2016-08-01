@@ -17,14 +17,14 @@ class UserProfile extends Component {
   }
 
   render() {
-    if (!this.props.user.data) {
+    if (!this.props.user.beers) {
       return <div>Still waiting!!!</div>;
     }
     return (
       <div className="container">
-        <h2 className="text-center text-capitalize">Hello, {this.props.user.data.firstName}!</h2>
+        <h2 className="text-center text-capitalize">Hello, {this.props.user.firstName}!</h2>
         <BeerList
-          usersBeers={this.props.user.data.beers}
+          usersBeers={this.props.user.beers}
           availableBeers={this.props.availableBeers.list}
         />
       </div>
@@ -43,5 +43,5 @@ export default connect(mapStateToProps)(UserProfile);
 UserProfile.propTypes = {
   params: React.PropTypes.object,
   user: React.PropTypes.object,
-  availableBeers: React.PropTypes.object,
+  availableBeers: React.PropTypes.array,
 };
