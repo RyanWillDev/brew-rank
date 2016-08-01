@@ -1,12 +1,8 @@
-export default function reducer(state = {
-  error: null,
-}, action) {
+export default function reducer(state = {}, action) {
   switch (action.type) {
     case 'FETCH_USER_DATA_FULLFILLED': {
-      const data = action.payload;
       return {
-        ...state,
-        data,
+        ...action.payload,
       };
     }
     default:
