@@ -10,3 +10,8 @@ export function fetchUserData(userID) {
     store.dispatch({ type: 'FETCH_USER_DATA_FAILED', payload: err });
   });
 }
+
+export function addBeerToUsersList(beerData) {
+  store.dispatch({ type: 'ADD_BEER_TO_USERS_LIST', payload: beerData });
+}
+

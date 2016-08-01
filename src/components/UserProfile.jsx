@@ -25,7 +25,7 @@ class UserProfile extends Component {
         <h2 className="text-center text-capitalize">Hello, {this.props.user.firstName}!</h2>
         <BeerList
           usersBeers={this.props.user.beers}
-          availableBeers={this.props.availableBeers.list}
+          availableBeers={this.props.availableBeers}
         />
       </div>
     );
