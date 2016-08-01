@@ -22,10 +22,11 @@ const SingleBeer = (props) => {
         <span style={spanStyle}>Name: {props.name}</span>
         <span style={spanStyle}>Style: {props.style}</span>
         <span style={spanStyle}>Your rating:
-        <input type="number"
-          defaultValue={props.yourRating} disabled={!props.listIsBeingEdited}
-          min="0" max="5"
-        />
+          <input
+            type="number"
+            defaultValue={props.yourRating} disabled={!props.listIsBeingEdited}
+            min="0" max="5"
+          />
         </span>
         <span style={spanStyle}>Overall rating: {props.overallRating}</span>
         <button className="btn btn-danger" style={removeButtonStyle}>Remove</button>
