@@ -6,7 +6,6 @@ export default class AddBeerModal extends Component {
   constructor(props) {
     super(props);
     this.addBeerToList = this.addBeerToList.bind(this);
-    this.getBeerFromList = this.getBeerFromList.bind(this);
   }
 
   addBeerToList() {
