@@ -1,10 +1,9 @@
 export default function reducer(state = {}, action) {
   switch (action.type) {
-    case 'FETCH_USER_DATA_FULLFILLED': {
+    case 'FETCH_USER_DATA_FULLFILLED':
       return {
         ...action.payload,
       };
-    }
     case 'ADD_BEER_TO_USERS_LIST':
       return {
         ...state,
@@ -24,6 +23,15 @@ export default function reducer(state = {}, action) {
         beers: [
           ...state.beers.slice(0, action.payload),
           ...state.beers.slice(action.payload + 1),
+        ],
+      };
+    case 'UPDATE_BEER_RATING':
+    console.log(state.beers[action.payload.id].rating);
+      return {
+        ...state,
+        beers: [
+          ...state.beers,
+          ...state.beers[action.payload.id].rating = action.payload.newRating,
         ],
       };
     default:

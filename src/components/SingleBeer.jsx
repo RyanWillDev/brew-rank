@@ -1,5 +1,6 @@
 import React from 'react';
-import { removeBeerFromList } from '../actions/userActions';
+import { removeBeerFromList, updateRating } from '../actions/userActions';
+
 
 const SingleBeer = (props) => {
   const spanStyle = {
@@ -17,7 +18,10 @@ const SingleBeer = (props) => {
     display: props.listIsBeingEdited ? 'inline-block' : 'none',
   };
 
-  console.log(props.id);
+  const handleRatingChange = (id) => {
+    const rating = parseInt(document.getElementById(`item-${id}`).value, 10);
+    updateRating(id, rating);
+  };
 
   return (
     <li style={rowStyle}className="row">
@@ -26,9 +30,9 @@ const SingleBeer = (props) => {
         <span style={spanStyle}>Style: {props.style}</span>
         <span style={spanStyle}>Your rating:
           <input
-            type="number"
+            type="number" id={`item-${props.id}`}
             defaultValue={props.yourRating} disabled={!props.listIsBeingEdited}
-            min="0" max="5"
+            min="0" max="5" onChange={handleRatingChange.bind(null, props.id)}
           />
         </span>
         <span style={spanStyle}>Overall rating: {props.overallRating}</span>

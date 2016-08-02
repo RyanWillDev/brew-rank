@@ -18,3 +18,7 @@ export function addBeerToUsersList(beerData) {
 export function removeBeerFromList(index) {
   store.dispatch({ type: 'REMOVE_BEER_FROM_LIST', payload: index });
 }
+
+export function updateRating(id, newRating) {
+  store.dispatch({ type: 'UPDATE_BEER_RATING', payload: { id, newRating } });
+}
