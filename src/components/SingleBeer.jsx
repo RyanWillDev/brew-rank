@@ -24,7 +24,7 @@ const SingleBeer = (props) => {
   };
 
   return (
-    <li style={rowStyle}className="row">
+    <li style={rowStyle} className="row">
       <div className="col-sm-12">
         <span style={spanStyle}>Name: {props.name}</span>
         <span style={spanStyle}>Style: {props.style}</span>
@@ -36,7 +36,10 @@ const SingleBeer = (props) => {
           />
         </span>
         <span style={spanStyle}>Overall rating: {props.overallRating}</span>
-        <button onClick={removeBeerFromList.bind(null, props.id)} className="btn btn-danger" style={removeButtonStyle}>Remove</button>
+        <button
+          onClick={removeBeerFromList.bind(null, props.id)}
+          className="btn btn-danger" style={removeButtonStyle}
+        >Remove</button>
       </div>
     </li>
   );
