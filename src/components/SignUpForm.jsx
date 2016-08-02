@@ -85,27 +85,32 @@ export default class SignUpForm extends Component {
           <div className="row">
             <div className="form-group">
               <div className="col-sm-3 col-sm-offset-3">
-                <input type="text" className="form-control"
+                <input
+                  type="text" className="form-control"
                   placeholder="First Name" ref="firstName" required
                 />
               </div>
-               <div className="col-sm-3">
-                <input type="text" className="form-control"
+              <div className="col-sm-3">
+                <input
+                  type="text" className="form-control"
                   placeholder="Last Name" ref="lastName" required
                 />
               </div>
               <div className="col-sm-6 col-sm-offset-3">
-                <input type="email" className="form-control"
+                <input
+                  type="email" className="form-control"
                   placeholder="Email Address" ref="email" required
                 />
               </div>
               <div className="col-sm-6 col-sm-offset-3">
-                <input type="password" className="form-control"
+                <input
+                  type="password" className="form-control"
                   placeholder="Password" ref="pw" required
                 />
               </div>
               <div className="col-sm-6 col-sm-offset-3">
-                <input type="password" className="form-control"
+                <input
+                  type="password" className="form-control"
                   placeholder="Re-enter Password" ref="pwCheck" required
                 />
               </div>
