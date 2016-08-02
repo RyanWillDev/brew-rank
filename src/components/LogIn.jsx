@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class LogIn extends Component {
   constructor(props) {
@@ -20,27 +21,17 @@ export default class LogIn extends Component {
       password: this.refs.password.value,
     });
 
-    // Open AJAX request
-    const xhr = new XMLHttpRequest;
-    xhr.open('POST', url, true);
-    // Check the status of the request
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        const res = JSON.parse(xhr.responseText);
-        if (xhr.status === 200) {
-          // Store token in cookie
-          sessionStorage.setItem('brtoken', res.token);
-          // If auth passed redirect to users profile
-          window.location = `#/profile/${res.id}`;
-        } else if (xhr.status === 401) {
-          // If auth failed show message
-          _this.setState({ message: res.message, alertClass: 'alert alert-danger' });
-        }
+    axios.post(url, data, { headers: { 'Content-Type': 'application/json' } })
+    .then((response) => {
+      if (response.status === 200) {
+        sessionStorage.setItem('brtoken', response.data.token);
+        window.location = `#/profile/${response.data.id}`;
       }
-    };
-
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(data);
+    }).catch((err) => {
+      if (err.response.status === 401) {
+        _this.setState({ message: err.response.data.message, alertClass: 'alert alert-danger' });
+      }
+    });
   }
 
   render() {

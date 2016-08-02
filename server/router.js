@@ -213,7 +213,7 @@ module.exports = function router(app) {
 
       if (!user) {
         // If user is not found return error message
-        res.status(401).json({ success: false, message: 'A user with that email was not found.' });
+        res.status(401).json({ success: false, message: 'No user with that email found.' });
       } else if (user) {
         // Check if password matches
         if (user.password !== req.body.password) {
