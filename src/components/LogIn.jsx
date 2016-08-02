@@ -16,8 +16,8 @@ export default class LogIn extends Component {
     const url = 'http://127.0.0.1:3000/restapi/login';
     // Get email and password
     const data = JSON.stringify({
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value,
+      email: this.refs.email.value,
+      password: this.refs.password.value,
     });
 
     // Open AJAX request
@@ -52,13 +52,13 @@ export default class LogIn extends Component {
             <div className="form-group">
               <div className="col-sm-6 col-sm-offset-3">
                 <input
-                  id="email" type="email" className="form-control"
+                  ref="email" type="email" className="form-control"
                   placeholder="Email Address" name="email" required
                 />
               </div>
               <div className="col-sm-6 col-sm-offset-3">
                 <input
-                  id="password" type="password" className="form-control"
+                  ref="password" type="password" className="form-control"
                   placeholder="Password" name="password" required
                 />
               </div>
