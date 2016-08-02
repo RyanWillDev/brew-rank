@@ -15,9 +15,10 @@ export default class Nav extends Component {
       <nav className="navbar navbar-default">
         <div className="container">
           <Link className="navbar-brand" to="/">BrewRank</Link>
-            { window.sessionStorage.brtoken ?
+            {window.sessionStorage.brtoken ?
               <div className="nav navbar navbar-right">
-                <Link className="btn btn-default navbar-btn" to="/login"
+                <Link
+                  className="btn btn-default navbar-btn" to="/login"
                   onClick={this.logout}
                 >Log Out</Link>
               </div>
