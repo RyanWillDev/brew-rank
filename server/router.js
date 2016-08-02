@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+
 // Get the mongoose models
 const Beer = require('./models/beerModel');
 const User = require('./models/userModel');
@@ -274,7 +276,7 @@ module.exports = function router(app) {
         throw err;
       }
       let userData;
-      Beer.populate(user, 'beers._id', (err, user) => {
+      Beer.populate(user, 'beers._id', (err, user) => { // eslint-disable-line
         userData = {
           firstName: user.firstName,
           lastName: user.lastName,
