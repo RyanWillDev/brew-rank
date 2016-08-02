@@ -18,6 +18,14 @@ export default function reducer(state = {}, action) {
           },
         ],
       };
+    case 'REMOVE_BEER_FROM_LIST':
+      return {
+        ...state,
+        beers: [
+          ...state.beers.slice(0, action.payload),
+          ...state.beers.slice(action.payload + 1),
+        ],
+      };
     default:
       return state;
   }
