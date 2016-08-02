@@ -1,4 +1,5 @@
 import React from 'react';
+import { removeBeerFromList } from '../actions/userActions';
 
 const SingleBeer = (props) => {
   const spanStyle = {
@@ -16,6 +17,8 @@ const SingleBeer = (props) => {
     display: props.listIsBeingEdited ? 'inline-block' : 'none',
   };
 
+  console.log(props.id);
+
   return (
     <li style={rowStyle}className="row">
       <div className="col-sm-12">
@@ -29,7 +32,7 @@ const SingleBeer = (props) => {
           />
         </span>
         <span style={spanStyle}>Overall rating: {props.overallRating}</span>
-        <button className="btn btn-danger" style={removeButtonStyle}>Remove</button>
+        <button onClick={removeBeerFromList.bind(null, props.id)} className="btn btn-danger" style={removeButtonStyle}>Remove</button>
       </div>
     </li>
   );
@@ -43,4 +46,5 @@ SingleBeer.propTypes = {
   overallRating: React.PropTypes.number,
   style: React.PropTypes.string,
   listIsBeingEdited: React.PropTypes.bool,
+  id: React.PropTypes.number,
 };

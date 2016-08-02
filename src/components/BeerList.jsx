@@ -50,7 +50,7 @@ export default class BeerList extends Component {
           {this.props.usersBeers.map((beer, i) =>
             /* eslint-disable */ // Disabling for _id that is how it is returned from DB
             <SingleBeer
-              key={i} name={beer._id.name} yourRating={beer.rating}
+              key={i} id={i} name={beer._id.name} yourRating={beer.rating}
               overallRating={beer._id.rating} style={beer._id.style}
               listIsBeingEdited={this.state.listIsBeingEdited}
               /* eslint-disable */

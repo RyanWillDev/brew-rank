@@ -15,3 +15,6 @@ export function addBeerToUsersList(beerData) {
   store.dispatch({ type: 'ADD_BEER_TO_USERS_LIST', payload: beerData });
 }
 
+export function removeBeerFromList(index) {
+  store.dispatch({ type: 'REMOVE_BEER_FROM_LIST', payload: index });
+}
