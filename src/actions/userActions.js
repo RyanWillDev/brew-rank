@@ -22,3 +22,12 @@ export function removeBeerFromList(index) {
 export function updateRating(id, newRating) {
   store.dispatch({ type: 'UPDATE_BEER_RATING', payload: { id, newRating } });
 }
+
+export function saveUserBeerList(userID) {
+  const { beers } = store.getState().user;
+  const beerData = beers.reduce((prev, curr, i) => {
+    prev[i] = { rating: curr.rating, _id: curr._id._id };
+    return prev;
+  }, []);
+  
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SingleBeer from './SingleBeer';
 import AddBeerModal from './AddBeerModal';
+import { saveUserBeerList } from '../actions/userActions';
 
 export default class BeerList extends Component {
   constructor(props) {
@@ -17,6 +18,11 @@ export default class BeerList extends Component {
   handleEditClick() {
     // Keeps track of whether the list is being edited or not
     // Sends that info to SingleBeer as a prop
+
+    if (this.state.listIsBeingEdited) {
+      saveUserBeerList(this.props.userID);
+    }
+
     this.setState({ listIsBeingEdited: !this.state.listIsBeingEdited });
   }
 
@@ -68,4 +74,5 @@ export default class BeerList extends Component {
 
 BeerList.propTypes = {
   usersBeers: React.PropTypes.array,
+  userID: React.PropTypes.string,
 };

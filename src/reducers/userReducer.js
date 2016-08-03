@@ -26,7 +26,6 @@ export default function reducer(state = {}, action) {
         ],
       };
     case 'UPDATE_BEER_RATING':
-    console.log(state.beers[action.payload.id].rating);
       return {
         ...state,
         beers: [
