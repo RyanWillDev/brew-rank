@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 // Import components
 import BeerList from './BeerList';
+import AdminDashboard from './AdminDashboard';
 // Import actions
 import { fetchAvailableBeers } from '../actions/beerListActions';
 import { fetchUserData } from '../actions/userActions';
@@ -16,6 +17,18 @@ class UserProfile extends Component {
     fetchAvailableBeers();
   }
 
+  displayCorrectProfile() {
+    if (!this.props.user.isAdmin) {
+      return (
+        <BeerList
+          usersBeers={this.props.user.beers}
+          availableBeers={this.props.availableBeers} userID={this.props.params.userID}
+        />);
+    } else {
+      return <AdminDashboard availableBeers={this.props.availableBeers} />;
+    }
+  }
+
   render() {
     if (!this.props.user.beers) {
       return <div>Still waiting!!!</div>;
@@ -23,10 +36,7 @@ class UserProfile extends Component {
     return (
       <div className="container">
         <h2 className="text-center text-capitalize">Hello, {this.props.user.firstName}!</h2>
-        <BeerList
-          usersBeers={this.props.user.beers}
-          availableBeers={this.props.availableBeers} userID={this.props.params.userID}
-        />
+        {this.displayCorrectProfile()}
       </div>
     );
   }
