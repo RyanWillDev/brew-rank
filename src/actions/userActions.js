@@ -1,8 +1,9 @@
 import axios from 'axios';
 import store from '../store';
+import { buildApiUrl } from '../apiConfigs';
 
 export function fetchUserData(userID) {
-  axios.get(`http://127.0.0.1:3000/restapi/profile/${userID}`, { headers: { 'x-access-token': window.sessionStorage.brtoken } })
+  axios.get(buildApiUrl(['/profile', `/${userID}`]), { headers: { 'x-access-token': window.sessionStorage.brtoken } })
   .then((response) => {
     store.dispatch({ type: 'FETCH_USER_DATA_FULLFILLED', payload: response.data });
   })
@@ -29,5 +30,14 @@ export function saveUserBeerList(userID) {
     prev[i] = { rating: curr.rating, _id: curr._id._id };
     return prev;
   }, []);
-  
+  axios.post(buildApiUrl(['/profile', `/${userID}`]), beerData, { headers: {
+    'x-access-token': window.sessionStorage.brtoken,
+  },
+  })
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((err) => {
+    console.log(err.response);
+  });
 }

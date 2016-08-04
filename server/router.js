@@ -277,16 +277,27 @@ module.exports = function router(app) {
       }
       let userData;
       Beer.populate(user, 'beers._id', (err, user) => { // eslint-disable-line
+         // Get relevant parts of the user object
         userData = {
           firstName: user.firstName,
           lastName: user.lastName,
           beers: user.beers,
           isAdmin: user.isAdmin,
         };
+        // Send back the data
         res.status(200).json(userData);
       });
-      // Get relevant parts of the user object
-      // Send back the data
     });
+  });
+
+  app.post('/restapi/profile/:userID', authRoutes, (req, res) => {
+    // Find user by _id and update the beers list to the list from the store.
+    User.findOneAndUpdate({ _id: req.params.userID }, { $set: { beers: req.body } }, { new: true },
+      (err, doc) => {
+        if (err) {
+          res.status(500).json(err);
+        }
+        res.status(200);
+      });
   });
 };
