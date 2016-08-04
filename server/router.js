@@ -293,7 +293,7 @@ module.exports = function router(app) {
   app.post('/restapi/profile/:userID', authRoutes, (req, res) => {
     // Find user by _id and update the beers list to the list from the store.
     User.findOneAndUpdate({ _id: req.params.userID }, { $set: { beers: req.body } }, { new: true },
-      (err, doc) => {
+      (err) => {
         if (err) {
           res.status(500).json(err);
         }
