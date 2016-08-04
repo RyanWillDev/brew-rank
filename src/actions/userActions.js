@@ -3,7 +3,8 @@ import store from '../store';
 import { buildApiUrl } from '../apiConfigs';
 
 export function fetchUserData(userID) {
-  axios.get(buildApiUrl(['/profile', `/${userID}`]), { headers: { 'x-access-token': window.sessionStorage.brtoken } })
+  axios.get(buildApiUrl(['/profile', `/${userID}`]), { headers: {
+    'x-access-token': window.sessionStorage.brtoken } })
   .then((response) => {
     store.dispatch({ type: 'FETCH_USER_DATA_FULLFILLED', payload: response.data });
   })
@@ -33,11 +34,5 @@ export function saveUserBeerList(userID) {
   axios.post(buildApiUrl(['/profile', `/${userID}`]), beerData, { headers: {
     'x-access-token': window.sessionStorage.brtoken,
   },
-  })
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err.response);
   });
 }
