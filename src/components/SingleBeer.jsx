@@ -7,6 +7,7 @@ const SingleBeer = (props) => {
     paddingRight: 50,
     display: 'inline-block',
     textTransform: 'capitalize',
+    fontWeight: 500,
   };
 
   const rowStyle = {
@@ -19,7 +20,7 @@ const SingleBeer = (props) => {
   };
 
   const handleRatingChange = (id) => {
-    const rating = parseInt(document.getElementById(`item-${id}`).value, 10);
+    const rating = parseInt(document.getElementById(`item-${id}`).value, 10); // 10 for decimal
     updateRating(id, rating);
   };
 

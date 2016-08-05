@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import AdminNav from './AdminNav';
+import AvailableBeersList from './AvailableBeersList';
 
 export default class AdminDashboard extends Component {
   constructor(props) {
@@ -19,7 +21,7 @@ export default class AdminDashboard extends Component {
     if (this.state.listToManage === 'users') {
       return <h1>Managing Users</h1>;
     }
-    return <h1>Managing Beers</h1>;
+    return <AvailableBeersList availableBeers={this.props.availableBeers} />;
   }
 
   render() {
@@ -31,3 +33,7 @@ export default class AdminDashboard extends Component {
     );
   }
 }
+
+AdminDashboard.propTypes = {
+  availableBeers: React.PropTypes.array,
+};
