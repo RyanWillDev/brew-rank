@@ -31026,7 +31026,7 @@
 	});
 	exports.buildApiUrl = buildApiUrl;
 	function buildApiUrl(params) {
-	  var baseUrl = 'https://brewrank.herokuapp.com/restapi/';
+	  var baseUrl = 'https://brewrank.herokuapp.com/restapi';
 	  var apiUrl = params.reduce(function (prev, currParam) {
 	    return prev.concat(currParam);
 	  }, baseUrl);
