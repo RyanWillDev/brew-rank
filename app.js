@@ -76,11 +76,11 @@
 
 	var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
-	var _LogIn = __webpack_require__(297);
+	var _LogIn = __webpack_require__(298);
 
 	var _LogIn2 = _interopRequireDefault(_LogIn);
 
-	var _UserProfile = __webpack_require__(298);
+	var _UserProfile = __webpack_require__(299);
 
 	var _UserProfile2 = _interopRequireDefault(_UserProfile);
 
@@ -29486,6 +29486,8 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
+	var _apiConfigs = __webpack_require__(297);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29528,7 +29530,6 @@
 	    key: 'submitFormData',
 	    value: function submitFormData() {
 	      var _this = this;
-	      var url = 'http://localhost:3000/restapi/users';
 	      var data = JSON.stringify({
 	        firstName: this.refs.firstName.value,
 	        lastName: this.refs.lastName.value,
@@ -29537,7 +29538,7 @@
 	        bday: new Date(this.refs.birthday.value)
 	      });
 
-	      _axios2.default.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
+	      _axios2.default.post((0, _apiConfigs.buildApiUrl)(['/users']), data, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
 	        if (response.status === 200) {
 	          sessionStorage.setItem('brtoken', response.data.token);
 	          window.location = '#/profile/' + response.data.id;
@@ -31023,6 +31024,28 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.buildApiUrl = buildApiUrl;
+	function buildApiUrl(params) {
+	  var baseUrl = 'https://brewrank.herokuapp.com/restapi/';
+	  var apiUrl = params.reduce(function (prev, currParam) {
+	    return prev.concat(currParam);
+	  }, baseUrl);
+	  return apiUrl;
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "apiConfigs.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -31033,6 +31056,8 @@
 	var _axios = __webpack_require__(275);
 
 	var _axios2 = _interopRequireDefault(_axios);
+
+	var _apiConfigs = __webpack_require__(297);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31063,14 +31088,13 @@
 	    value: function handleLogIn(event) {
 	      event.preventDefault();
 	      var _this = this;
-	      var url = 'http://127.0.0.1:3000/restapi/login';
 	      // Get email and password
 	      var data = JSON.stringify({
 	        email: this.refs.email.value,
 	        password: this.refs.password.value
 	      });
 
-	      _axios2.default.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
+	      _axios2.default.post((0, _apiConfigs.buildApiUrl)(['/login']), data, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
 	        if (response.status === 200) {
 	          sessionStorage.setItem('brtoken', response.data.token);
 	          window.location = '#/profile/' + response.data.id;
@@ -31150,7 +31174,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LogIn.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31169,7 +31193,7 @@
 
 	var _reactRedux = __webpack_require__(264);
 
-	var _BeerList = __webpack_require__(299);
+	var _BeerList = __webpack_require__(300);
 
 	var _BeerList2 = _interopRequireDefault(_BeerList);
 
@@ -31179,7 +31203,7 @@
 
 	var _beerListActions = __webpack_require__(307);
 
-	var _userActions = __webpack_require__(301);
+	var _userActions = __webpack_require__(302);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31272,7 +31296,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "UserProfile.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31289,7 +31313,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SingleBeer = __webpack_require__(300);
+	var _SingleBeer = __webpack_require__(301);
 
 	var _SingleBeer2 = _interopRequireDefault(_SingleBeer);
 
@@ -31297,7 +31321,7 @@
 
 	var _AddBeerModal2 = _interopRequireDefault(_AddBeerModal);
 
-	var _userActions = __webpack_require__(301);
+	var _userActions = __webpack_require__(302);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31415,7 +31439,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BeerList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31430,7 +31454,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userActions = __webpack_require__(301);
+	var _userActions = __webpack_require__(302);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31516,7 +31540,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "SingleBeer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31540,7 +31564,7 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _apiConfigs = __webpack_require__(302);
+	var _apiConfigs = __webpack_require__(297);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31581,28 +31605,6 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "userActions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.buildApiUrl = buildApiUrl;
-	function buildApiUrl(params) {
-	  var baseUrl = 'http://localhost:3000/restapi';
-	  var apiUrl = params.reduce(function (prev, currParam) {
-	    return prev.concat(currParam);
-	  }, baseUrl);
-	  return apiUrl;
-	}
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "apiConfigs.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
 /* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31624,7 +31626,7 @@
 
 	var _BeerOption2 = _interopRequireDefault(_BeerOption);
 
-	var _userActions = __webpack_require__(301);
+	var _userActions = __webpack_require__(302);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31963,10 +31965,12 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
+	var _apiConfigs = __webpack_require__(297);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function fetchAvailableBeers() {
-	  _axios2.default.get('http://127.0.0.1:3000/restapi/beers').then(function (response) {
+	  _axios2.default.get((0, _apiConfigs.buildApiUrl)(['/beers'])).then(function (response) {
 	    _store2.default.dispatch({ type: 'FETCH_AVAILABLE_BEERS_FULLFILLED', payload: response.data });
 	  }).catch(function (err) {
 	    _store2.default.dispatch({ type: 'FETCH_AVAILABLE_BEERS_FAILED', payload: err });
