@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 const router = require('./router');
 
 // Connect mongoose to database
-mongoose.connect(config.development);
+mongoose.connect(process.env.PORT ? config.production : config.development);
 
 // !!!Still not sure if I need this!!!
 // Alias the connection as db

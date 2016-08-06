@@ -1,1 +1,1 @@
-web: node ./server/server.js 
+web: mongod | node ./server/server.js 
