@@ -7,7 +7,8 @@ const beerSchema = mongoose.Schema({
   abv: Number, // Alcohol by volume
   color: String,
   style: { type: String, isRequired: true }, // IPA, Stout, etc
-  rating: { type: Number, isRequired: true }, // The beer's rating from users
+  rating: { type: Number, isRequired: true }, // The beer's rating from users,
+  userRating: [],
   ingredients: [],
   inStock: { type: Boolean, required: true, default: false },
 });
