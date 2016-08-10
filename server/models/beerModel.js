@@ -8,9 +8,20 @@ const beerSchema = mongoose.Schema({
   color: String,
   style: { type: String, isRequired: true }, // IPA, Stout, etc
   rating: { type: Number, isRequired: true }, // The beer's rating from users,
-  userRating: [],
+  userRatings: [],
   ingredients: [],
   inStock: { type: Boolean, required: true, default: false },
+});
+
+beerSchema.pre('save', function calculateOveralRating(next) {
+  const beer = this;
+
+  let total = 0;
+  beer.userRatings.forEach((user) => {
+    total += user.rating;
+  });
+  beer.rating = total / beer.userRatings.length;
+  next();
 });
 
 // Create and export the Beer model
