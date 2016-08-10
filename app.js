@@ -31574,7 +31574,6 @@
 	      'x-access-token': window.sessionStorage.brtoken } }).then(function (response) {
 	    _store2.default.dispatch({ type: 'FETCH_USER_DATA_FULLFILLED', payload: response.data });
 	  }).catch(function (err) {
-	    console.log(err);
 	    _store2.default.dispatch({ type: 'FETCH_USER_DATA_FAILED', payload: err });
 	  });
 	}
@@ -31601,8 +31600,8 @@
 	  _axios2.default.post((0, _apiConfigs.buildApiUrl)(['/profile', '/' + userID]), beerData, { headers: {
 	      'x-access-token': window.sessionStorage.brtoken
 	    }
-	  }).then(fetchUserData(userID)).catch(function (err) {
-	    console.log(err);
+	  }).then(function () {
+	    return fetchUserData(userID);
 	  });
 	}
 
