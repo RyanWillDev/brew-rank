@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SingleBeer from './SingleBeer';
 import AddBeerModal from './AddBeerModal';
-import { saveUserBeerList } from '../actions/userActions';
+import { saveUserBeerList, fetchUserData } from '../actions/userActions';
 
 export default class BeerList extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ export default class BeerList extends Component {
 
     if (this.state.listIsBeingEdited) {
       saveUserBeerList(this.props.userID);
+      fetchUserData(this.props.userID);
     }
 
     this.setState({ listIsBeingEdited: !this.state.listIsBeingEdited });
