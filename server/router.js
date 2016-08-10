@@ -304,7 +304,6 @@ module.exports = function router(app) {
       Beer.findOneAndUpdate({ _id: beerEntry._id }, { $set: { userRatings: beerEntry } },
         { new: true }, (err, beer) => {
           beer.save();
-          console.log(beer.userRatings);
         });
     });
       // Find that beer
