@@ -31201,7 +31201,7 @@
 
 	var _AdminDashboard2 = _interopRequireDefault(_AdminDashboard);
 
-	var _beerListActions = __webpack_require__(307);
+	var _beerListActions = __webpack_require__(308);
 
 	var _userActions = __webpack_require__(302);
 
@@ -31245,9 +31245,9 @@
 	          usersBeers: this.props.user.beers,
 	          availableBeers: this.props.availableBeers, userID: this.props.params.userID
 	        });
-	      } else {
-	        return _react2.default.createElement(_AdminDashboard2.default, { availableBeers: this.props.availableBeers });
 	      }
+
+	      return _react2.default.createElement(_AdminDashboard2.default, { availableBeers: this.props.availableBeers });
 	    }
 	  }, {
 	    key: 'render',
@@ -31357,6 +31357,7 @@
 
 	      if (this.state.listIsBeingEdited) {
 	        (0, _userActions.saveUserBeerList)(this.props.userID);
+	        (0, _userActions.fetchUserData)(this.props.userID);
 	      }
 
 	      this.setState({ listIsBeingEdited: !this.state.listIsBeingEdited });
@@ -31462,7 +31463,8 @@
 	  var spanStyle = {
 	    paddingRight: 50,
 	    display: 'inline-block',
-	    textTransform: 'capitalize'
+	    textTransform: 'capitalize',
+	    fontWeight: 500
 	  };
 
 	  var rowStyle = {
@@ -31475,7 +31477,7 @@
 	  };
 
 	  var handleRatingChange = function handleRatingChange(id) {
-	    var rating = parseInt(document.getElementById('item-' + id).value, 10);
+	    var rating = parseInt(document.getElementById('item-' + id).value, 10); // 10 for decimal
 	    (0, _userActions.updateRating)(id, rating);
 	  };
 
@@ -31796,6 +31798,10 @@
 
 	var _AdminNav2 = _interopRequireDefault(_AdminNav);
 
+	var _AvailableBeersList = __webpack_require__(307);
+
+	var _AvailableBeersList2 = _interopRequireDefault(_AvailableBeersList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31835,11 +31841,7 @@
 	          'Managing Users'
 	        );
 	      }
-	      return _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Managing Beers'
-	      );
+	      return _react2.default.createElement(_AvailableBeersList2.default, { availableBeers: this.props.availableBeers });
 	    }
 	  }, {
 	    key: 'render',
@@ -31857,6 +31859,11 @@
 	}(_react.Component);
 
 	exports.default = AdminDashboard;
+
+
+	AdminDashboard.propTypes = {
+	  availableBeers: _react2.default.PropTypes.array
+	};
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "AdminDashboard.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -31903,7 +31910,7 @@
 	        { className: "navbar navbar-default" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "container" },
+	          { className: "container-fluid" },
 	          _react2.default.createElement(
 	            "div",
 	            { className: "nav navbar navbar-left" },
@@ -31914,7 +31921,7 @@
 	            ),
 	            _react2.default.createElement(
 	              "select",
-	              { onChange: this.props.handleListChange },
+	              { ref: "select", defaultValue: "beers", onChange: this.props.handleListChange },
 	              _react2.default.createElement(
 	                "option",
 	                { value: "users" },
@@ -31946,6 +31953,82 @@
 
 /***/ },
 /* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AvailableBeersList = function AvailableBeersList(props) {
+	  var spanStyle = {
+	    paddingRight: 50,
+	    display: 'inline-block',
+	    textTransform: 'capitalize',
+	    fontWeight: 500
+	  };
+
+	  var rowStyle = {
+	    marginTop: 24
+	  };
+
+	  return _react2.default.createElement(
+	    'ul',
+	    { style: { listStyle: 'none' } },
+	    props.availableBeers.map(function (beer, i) {
+	      return _react2.default.createElement(
+	        'li',
+	        { style: rowStyle, className: 'row', key: i },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'span',
+	            { style: spanStyle },
+	            beer.name
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { style: spanStyle },
+	            beer.brewery
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { style: spanStyle },
+	            'Rating: ',
+	            beer.rating
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'btn btn-danger' },
+	            'Remove'
+	          )
+	        )
+	      );
+	    })
+	  );
+	};
+
+	exports.default = AvailableBeersList;
+
+
+	AvailableBeersList.propTypes = {
+	  availableBeers: _react2.default.PropTypes.array
+	};
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "AvailableBeersList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
