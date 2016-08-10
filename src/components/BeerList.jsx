@@ -21,7 +21,6 @@ export default class BeerList extends Component {
 
     if (this.state.listIsBeingEdited) {
       saveUserBeerList(this.props.userID);
-      fetchUserData(this.props.userID);
     }
 
     this.setState({ listIsBeingEdited: !this.state.listIsBeingEdited });
