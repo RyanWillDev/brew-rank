@@ -24,9 +24,9 @@ class UserProfile extends Component {
           usersBeers={this.props.user.beers}
           availableBeers={this.props.availableBeers} userID={this.props.params.userID}
         />);
-    } else {
-      return <AdminDashboard availableBeers={this.props.availableBeers} />;
     }
+
+    return <AdminDashboard availableBeers={this.props.availableBeers} />;
   }
 
   render() {
