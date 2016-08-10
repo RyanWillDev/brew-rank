@@ -299,5 +299,15 @@ module.exports = function router(app) {
         }
         res.status(200);
       });
+    // For each beer in the users list
+    req.body.forEach((beerEntry) => {
+      Beer.findOneAndUpdate({ _id: beerEntry._id }, { $set: { userRatings: beerEntry } },
+        { new: true }, (err, beer) => {
+          beer.save();
+          console.log(beer.userRatings);
+        });
+    });
+      // Find that beer
+      // Update list of user ratings array
   });
 };
