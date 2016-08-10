@@ -34,5 +34,5 @@ export function saveUserBeerList(userID) {
   axios.post(buildApiUrl(['/profile', `/${userID}`]), beerData, { headers: {
     'x-access-token': window.sessionStorage.brtoken,
   },
-  });
+  }).then(fetchUserData(userID));
 }
