@@ -31574,6 +31574,7 @@
 	      'x-access-token': window.sessionStorage.brtoken } }).then(function (response) {
 	    _store2.default.dispatch({ type: 'FETCH_USER_DATA_FULLFILLED', payload: response.data });
 	  }).catch(function (err) {
+	    console.log(err);
 	    _store2.default.dispatch({ type: 'FETCH_USER_DATA_FAILED', payload: err });
 	  });
 	}
@@ -31600,7 +31601,9 @@
 	  _axios2.default.post((0, _apiConfigs.buildApiUrl)(['/profile', '/' + userID]), beerData, { headers: {
 	      'x-access-token': window.sessionStorage.brtoken
 	    }
-	  }).then(fetchUserData(userID));
+	  }).then(fetchUserData(userID)).catch(function (err) {
+	    console.log(err);
+	  });
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/ryan/Projects/brew-rank/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "userActions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
