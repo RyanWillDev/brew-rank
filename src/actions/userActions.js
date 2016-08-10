@@ -9,6 +9,7 @@ export function fetchUserData(userID) {
     store.dispatch({ type: 'FETCH_USER_DATA_FULLFILLED', payload: response.data });
   })
   .catch((err) => {
+    console.log(err);
     store.dispatch({ type: 'FETCH_USER_DATA_FAILED', payload: err });
   });
 }
@@ -34,5 +35,8 @@ export function saveUserBeerList(userID) {
   axios.post(buildApiUrl(['/profile', `/${userID}`]), beerData, { headers: {
     'x-access-token': window.sessionStorage.brtoken,
   },
-  }).then(fetchUserData(userID));
+  }).then(fetchUserData(userID))
+  .catch((err) => {
+    console.log(err);
+  });
 }
