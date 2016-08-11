@@ -20,7 +20,7 @@ beerSchema.pre('save', function calculateOveralRating(next) {
   beer.userRatings.forEach((user) => {
     total += user.rating;
   });
-  beer.rating = total / beer.userRatings.length;
+  beer.rating = (total / beer.userRatings.length).toFixed(1);
   next();
 });
 
