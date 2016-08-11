@@ -2,7 +2,7 @@
 
 An application to allow businesses to keep track of which of their beers customers like most. 
 Also allows users to keep up with and rate the beers they have tried. 
-This is my first full stack app. The backend was built with Node and Express and is hosted on the Heroku. It uses MongoDB, which is hosted on mLab. The frontend was built in React and is hosted on Github pages.
+This is my first full stack app. The backend was built with Node and Express and is hosted on the Heroku. It uses MongoDB, which is hosted on mLab. The frontend was built with React and Redux. It is hosted on Github pages.
 
 #### Dependencies 
 * Node
