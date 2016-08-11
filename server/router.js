@@ -302,11 +302,11 @@ module.exports = function router(app) {
     // For each beer in the users list
     req.body.forEach((beerEntry) => {
       // Find that beer
-      Beer.findOneAndUpdate({ _id: beerEntry._id }, { $set: { userRatings: beerEntry } },
-        { new: true }, (err, beer) => {
-          // Update list of user ratings array
-          beer.save();
-        });
+      Beer.findOne({ _id: beerEntry._id }, (err, beer) => {
+        beer.userRatings.push({ userID: req.params.userID, rating: beerEntry.rating });
+        // Update list of user ratings array
+        beer.save();
+      });
     });
   });
 };

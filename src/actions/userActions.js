@@ -9,6 +9,7 @@ export function fetchUserData(userID) {
     store.dispatch({ type: 'FETCH_USER_DATA_FULLFILLED', payload: response.data });
   })
   .catch((err) => {
+    console.log(err);
     store.dispatch({ type: 'FETCH_USER_DATA_FAILED', payload: err });
   });
 }
