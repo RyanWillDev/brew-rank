@@ -1,9 +1,8 @@
 # brew-rank
 
-An application to allow businesses to keep track of which of their beers people like most. 
+An application to allow businesses to keep track of which of their beers customers like most. 
 Also allows users to keep up with and rate the beers they have tried. 
-This is my first full stack app. It is hosted on a Heroku Dyno and mlab MongoDB instance. 
-It has both a REST API and a GraphQL implementation.
+This is my first full stack app. The backend was built with Node and Express and is hosted on the Heroku. It uses MongoDB, which is hosted on mLab. The frontend was built in React and is hosted on Github pages.
 
 #### Dependencies 
 * Node
@@ -12,8 +11,9 @@ It has both a REST API and a GraphQL implementation.
 * Mongo
 * Mongoose
 * body-parser - To facilitate JSON Posts to the API
+* JSONWebToken - To facilitate user authentication on the server
 
-To get started clone the repo and run `npm install` to install all the dependencies. Then run `npm run dev` and visit `localhost:3000`.
+To get started clone the repo and run `npm install` to install all the dependencies. Then run `npm run dev-server` and `npm run dev` then visit `localhost:3000`.
 
 REST API
 --------
