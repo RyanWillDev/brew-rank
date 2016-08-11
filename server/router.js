@@ -297,16 +297,16 @@ module.exports = function router(app) {
         if (err) {
           res.status(500).json(err);
         }
-        res.status(200);
+        res.status(200).send();
       });
     // For each beer in the users list
     req.body.forEach((beerEntry) => {
+      // Find that beer
       Beer.findOneAndUpdate({ _id: beerEntry._id }, { $set: { userRatings: beerEntry } },
         { new: true }, (err, beer) => {
+          // Update list of user ratings array
           beer.save();
         });
     });
-      // Find that beer
-      // Update list of user ratings array
   });
 };
