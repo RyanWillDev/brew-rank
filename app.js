@@ -31679,8 +31679,7 @@
 	        display: 'block',
 	        width: '60%',
 	        margin: '32px 0 8px',
-	        padding: '32px',
-	        fontSize: '2em',
+	        fontSize: '1.2em',
 	        textTransform: 'capitalize'
 	      };
 	      return _react2.default.createElement(
